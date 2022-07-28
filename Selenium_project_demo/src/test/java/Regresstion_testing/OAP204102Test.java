@@ -56,7 +56,6 @@ public class OAP204102Test {
     driver.findElement(By.cssSelector("img")).click();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
     driver.findElement(By.className("GridRow1")).click();
-//    driver.findElement(By.id("ctlClientContent_ddl_LockStatus")).click();
 //    driver.findElement(By.id("ctlClientContent_txtRegistrationDate")).click();
 //    driver.findElement(By.id("ctlClientContent_txtConsentProviderName")).click();
 //    driver.findElement(By.id("ctlClientContent_txtIIO_DossierSentDate")).click();
@@ -66,10 +65,14 @@ public class OAP204102Test {
 //    driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode")).click();
     
     WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
+    WebElement lockStatus = driver.findElement(By.cssSelector("#ctlClientContent_ddl_LockStatus option"));
+    WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
 
-    assertEquals(transitionCode.getAttribute("value").length(), 5); // User should be able to see a five-character alpha-numerical IIO Transition Code assigned for the client.
-    
-//    driver.findElement(By.id("ctlClientContent_txtOAPClientNumber")).click();
+    assertTrue(transitionCode.getAttribute("value").length() == 5); // User should be able to see a five-character alpha-numerical IIO Transition Code assigned for the client.
+    assertTrue(lockStatus.getText().equals("Unlocked")); // User should be able to see client lock status is set to "Unlocked" by default.
+    assertTrue(regDate.getAttribute("value") == ""); // Registration date field should be empty
+
+    //    driver.findElement(By.id("ctlClientContent_txtOAPClientNumber")).click();
 //    driver.findElement(By.id("ctlClientContent_txtComment")).click();
 //    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
     
