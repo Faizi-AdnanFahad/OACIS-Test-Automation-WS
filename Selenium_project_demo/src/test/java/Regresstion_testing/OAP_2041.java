@@ -49,27 +49,13 @@ public class OAP_2041 {
   @Test
   public void oAP2041() {
 	  
-	/*
-	 * Creates a client
-	 */
 	driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx");
-    driver.manage().window().setSize(new Dimension(1696, 1036));
-    driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click();
-    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
-    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
-    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("John Mckenziy");
-    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("John FIRST");
-    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
-    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys("2014/10/08");
-    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 
     /*
 	 * Search for the client and confirm all the information
 	 */
     driver.findElement(By.id("ctlQueryBox_txtQuery")).click();
-    driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("John Mckenziy");
+    driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("Marc Ruppert");
     driver.findElement(By.cssSelector("img")).click();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
     driver.findElement(By.className("GridRow1")).click();

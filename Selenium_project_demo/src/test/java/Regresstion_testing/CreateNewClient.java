@@ -49,6 +49,8 @@ public class CreateNewClient {
   @Test
   public void oAP2041() {
 	  
+	  // Should I have a duplicate check before creating a client??? if not, when running this script, multiple clients may be created.
+	  
 	/*
 	 * Creates a client
 	 */
@@ -56,11 +58,35 @@ public class CreateNewClient {
     driver.manage().window().setSize(new Dimension(1696, 1036));
     driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click();
     driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
+    
+    
+    WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
+//    WebElement lockStatus = driver.findElement(By.cssSelector("#ctlClientContent_ddl_LockStatus option"));
+    WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
+    WebElement lastName = driver.findElement(By.id("ctlClientContent_txtLastName"));
+    WebElement firstName = driver.findElement(By.id("ctlClientContent_txtFirstName"));
+    WebElement middleName = driver.findElement(By.id("ctlClientContent_txtMiddleName"));
+    WebElement dob = driver.findElement(By.id("ctlClientContent_ctlDob_txtDate"));
+    WebElement donID = driver.findElement(By.id("ctlClientContent_ctlDoNInvitationDate_txtDate"));
+    WebElement iioInvitationSentDate = driver.findElement(By.id("ctlClientContent_txtIIO_InvitationSentDate"));
+    WebElement iioDosierDate = driver.findElement(By.id("ctlClientContent_txtIIO_DossierSentDate"));
+    WebElement consentProviderName = driver.findElement(By.id("ctlClientContent_txtConsentProviderName"));
+    WebElement cftDeclinedDate = driver.findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
+    WebElement comment = driver.findElement(By.id("ctlClientContent_txtComment"));
+
+    WebElement[] webpageElements = {transitionCode, regDate, lastName, firstName, middleName, dob, donID, iioInvitationSentDate, iioDosierDate, consentProviderName, cftDeclinedDate,
+    		comment};
+    // Checks that when creating a new client, all fields in the form are empty. (User should be able to see a blank client page form to fill out)
+    for (int i = 0; i < webpageElements.length; i ++) {
+    	WebElement webElement = webpageElements[i];
+    	assertTrue(webElement.getAttribute("value") == "");
+    }
+    
     driver.findElement(By.id("ctlClientContent_txtLastName")).click();
-    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("Max Johnson");
-    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("Steve F");
+    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("Marc Ruppert");
+    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("Ali F");
     driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
-    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys("2010/09/08");
+    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys("2011/09/08");
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
 
