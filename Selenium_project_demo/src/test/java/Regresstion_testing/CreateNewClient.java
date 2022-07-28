@@ -83,12 +83,16 @@ public class CreateNewClient {
     }
     
     driver.findElement(By.id("ctlClientContent_txtLastName")).click();
-    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("Marc Ruppert");
-    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("Ali F");
+    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("Mohammad Ali");
+    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("AB F");
     driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
     driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys("2011/09/08");
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+    
+    // User should be able to view the saved client information with the updated time at the bottom
+    WebElement updatedLabel = driver.findElement(By.id("ctlClientContent_lblUpdated"));
+    assertTrue(updatedLabel.isDisplayed());
 
   }
 }
