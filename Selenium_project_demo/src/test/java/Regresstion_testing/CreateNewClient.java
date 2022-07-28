@@ -30,7 +30,8 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-public class OAP2041Test {
+import java.time.Duration;
+public class CreateNewClient {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -47,16 +48,21 @@ public class OAP2041Test {
   }
   @Test
   public void oAP2041() {
-    driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx");
+	  
+	/*
+	 * Creates a client
+	 */
+	driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx");
     driver.manage().window().setSize(new Dimension(1696, 1036));
     driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click();
     driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
     driver.findElement(By.id("ctlClientContent_txtLastName")).click();
-    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("OAP2041 Last");
-    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("OAP 2041 First");
-    driver.findElement(By.id("ctlClientContent_ctlDob_imgCal")).click();
+    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("Max Johnson");
+    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("Steve F");
     driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
-    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys("2012/08/15");
+    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys("2010/09/08");
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+
   }
 }

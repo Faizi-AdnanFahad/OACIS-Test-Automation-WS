@@ -20,6 +20,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.beust.jcommander.internal.Console;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -29,7 +31,7 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-public class OAP204102Test {
+public class OAP_2041 {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -37,8 +39,6 @@ public class OAP204102Test {
   public void setUp() {
 	  WebDriverManager.edgedriver().setup();
       driver = new EdgeDriver();
-      driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
-
       js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
@@ -47,12 +47,29 @@ public class OAP204102Test {
 //    driver.quit();
   }
   @Test
-  public void oAP204102() {
+  public void oAP2041() {
+	  
+	/*
+	 * Creates a client
+	 */
+	driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx");
+    driver.manage().window().setSize(new Dimension(1696, 1036));
+    driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click();
+    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
+    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
+    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("John Mckenziy");
+    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("John FIRST");
+    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
+    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys("2014/10/08");
+    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
 
-    driver.get("http://intra.stage.oacis.children.gov.on.ca/");
-    driver.manage().window().setSize(new Dimension(1050, 718));
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
+
+    /*
+	 * Search for the client and confirm all the information
+	 */
     driver.findElement(By.id("ctlQueryBox_txtQuery")).click();
-    driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("Max Johnson");
+    driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("John Mckenziy");
     driver.findElement(By.cssSelector("img")).click();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
     driver.findElement(By.className("GridRow1")).click();
