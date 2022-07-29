@@ -61,7 +61,6 @@ public class CreateNewClient {
     
     
     WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
-//    WebElement lockStatus = driver.findElement(By.cssSelector("#ctlClientContent_ddl_LockStatus option"));
     WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
     WebElement lastName = driver.findElement(By.id("ctlClientContent_txtLastName"));
     WebElement firstName = driver.findElement(By.id("ctlClientContent_txtFirstName"));
@@ -83,10 +82,10 @@ public class CreateNewClient {
     }
     
     driver.findElement(By.id("ctlClientContent_txtLastName")).click();
-    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("Mohammad Ali");
-    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("AB F");
+    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("Mark Alexander");
+    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("MA F");
     driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
-    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys("2011/09/08");
+    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys("2013/11/08");
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
     
