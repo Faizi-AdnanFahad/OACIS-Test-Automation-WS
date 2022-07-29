@@ -47,17 +47,24 @@ public class OAP2042Test {
   }
   @Test
   public void oAP2042() {
-    driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx");
+    driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User navigates to OACIS 
     driver.manage().window().setSize(new Dimension(1050, 718));
-    driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click();
+    driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
     driver.findElement(By.id("ctlClientSearch_txtName")).click();
-    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("John Ballen");
+    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("John Ballen"); // User searches for client name
     driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();
+    
+    /*========================================????????=================================================*/
+     /*
+      * 4. User clicks "New" on side tab
+      * 5. User enters client information and clicks "Save"
+      */
 //    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
 //    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
 //    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("John Ballen");
 //    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("JB F");
 //    
+    /*=========================================================================================*/
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
     driver.findElement(By.className("GridRow1")).click();
 //    driver.findElement(By.id("ctlClientContent_ctlDob_imgCal")).click();
@@ -83,8 +90,9 @@ public class OAP2042Test {
     
     
     driver.findElement(By.id("ctlPageNav_lnkApplications")).click();
-    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
+    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click(); // User clicks "Applications" and then "New"
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    // User inputs all required fields in "Contacts" tab and clicks "Save"
     driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).click();
     driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys("John Ballen");
     driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).click();
@@ -131,6 +139,8 @@ public class OAP2042Test {
       builder.moveToElement(element).release().perform();
     }
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+    
+    // User inputs all required fields in "Intake" tab and clicks "Save"
     driver.findElement(By.cssSelector(".GridRowHighlight > td:nth-child(3)")).click();
     driver.findElement(By.id("ctlAppContent_lbIntakeTab")).click();
     driver.findElement(By.id("ctlAppContent_ddlIntakeProcess")).click();
@@ -146,6 +156,8 @@ public class OAP2042Test {
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
     driver.findElement(By.cssSelector(".GridRowHighlight > td:nth-child(4)")).click();
     driver.findElement(By.id("ctlAppContent_lbFollowUpTab")).click();
+    
+    // User inputs all required fields in "Follow up" tab and clicks "Save"
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
   }
 }
