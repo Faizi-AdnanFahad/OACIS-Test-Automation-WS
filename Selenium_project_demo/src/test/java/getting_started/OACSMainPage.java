@@ -16,7 +16,7 @@ public class OACSMainPage {
     
     @Test
     public void edgeSession() {
-        WebDriverManager.edgedriver().setup();
+        WebDriverManager.edgedriver().capabilities(null) .setup();
         driver = new EdgeDriver();
         driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx");
 
