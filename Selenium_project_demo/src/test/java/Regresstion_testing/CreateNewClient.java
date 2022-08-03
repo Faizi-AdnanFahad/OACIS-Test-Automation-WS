@@ -49,12 +49,11 @@ public class CreateNewClient {
   @Test
   public void oAP2041() {
 	 
-	 String lastNameInput = "Noah Alex";
+	 String lastNameInput = "Noah Alexander";
      String firstNameInput = "NA F";
      String dobInput = "2009/10/08";
 
      driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
-	 driver.manage().window().setSize(new Dimension(1696, 1036));
 	 driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User should be able to view client page
      driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
      driver.findElement(By.id("ctlClientSearch_txtName")).click();
@@ -63,86 +62,77 @@ public class CreateNewClient {
      
 //     WebElement resulted
      boolean atLeastOneResultFound = !driver.findElements(By.className("GridHeader")).isEmpty();
+     boolean namesMatches = false;
      
      if (atLeastOneResultFound) {
     	 WebElement resultFullName = driver.findElement(By.cssSelector(".GridRow1 td:first-child span")); // contains both first and last names. Needs to be parsed
     	 
-    	 int index =  extractFname(resultFullName.getText());
-    	 String resultsFname = resultFullName.getText().substring(0, index);
-    	 String resultsLname = resultFullName.getText().substring(index + 1, resultFullName.getText().length());
-
-    	 System.out.println(resultsLname);
+    	 int commaIndex =  getCommaIndex(resultFullName.getText());
+    	 String resultsLastname = resultFullName.getText().substring(0, commaIndex);
+    	 String resultsFirstname = resultFullName.getText().substring(commaIndex + 2, resultFullName.getText().length());
+    	 
+    	 namesMatches = resultsLastname.equals(lastNameInput) && resultsFirstname.equals(firstNameInput);
+    	 System.out.println(namesMatches);
      }
      
-//     boolean duplicateExists = atLeastOneResultFound;
-//    		 				   ;
-//	 if (!duplicateExists) {
-//		 	/*
-//			 * Creates a client
-//			 */
-//			
+     boolean duplicateExists = atLeastOneResultFound && namesMatches;
+    		 				   ;
+	 if (!duplicateExists) {
+		 	/*
+			 * Creates a client
+			 */
+    	 System.out.println("Creating new client");
+
 //			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 //		    driver.findElement(By.className("GridRow1")).click();
-//		    
-//		    
-//		    WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
-//		    WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
-//		    WebElement lastName = driver.findElement(By.id("ctlClientContent_txtLastName"));
-//		    WebElement firstName = driver.findElement(By.id("ctlClientContent_txtFirstName"));
-//		    WebElement middleName = driver.findElement(By.id("ctlClientContent_txtMiddleName"));
-//		    WebElement dob = driver.findElement(By.id("ctlClientContent_ctlDob_txtDate"));
-//		    WebElement donID = driver.findElement(By.id("ctlClientContent_ctlDoNInvitationDate_txtDate"));
-//		    WebElement iioInvitationSentDate = driver.findElement(By.id("ctlClientContent_txtIIO_InvitationSentDate"));
-//		    WebElement iioDosierDate = driver.findElement(By.id("ctlClientContent_txtIIO_DossierSentDate"));
-//		    WebElement consentProviderName = driver.findElement(By.id("ctlClientContent_txtConsentProviderName"));
-//		    WebElement cftDeclinedDate = driver.findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
-//		    WebElement comment = driver.findElement(By.id("ctlClientContent_txtComment"));
-//
-//		    WebElement[] webpageElements = {transitionCode, regDate, lastName, firstName, middleName, dob, donID, iioInvitationSentDate, iioDosierDate, consentProviderName, cftDeclinedDate,
-//		    		comment};
-//		    // Checks that when creating a new client, all fields in the form are empty. (User should be able to see a blank client page form to fill out)
-//		    for (int i = 0; i < webpageElements.length; i ++) {
-//		    	WebElement webElement = webpageElements[i];
-//		    	assertTrue(webElement.getAttribute("value") == ""); // User should be able to see a blank client page form to fill out
-//		    }
-//		    
-//		    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
-//		    // User should be able to fill out the requested fields on client page.
-//		    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
-//		    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys(lastNameInput);
-//		    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys(firstNameInput);
-//		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
-//		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys(dobInput);
-//		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-//		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-//		    
-//		    // User should be able to view the saved client information with the updated time at the bottom
-//		    WebElement updatedLabel = driver.findElement(By.id("ctlClientContent_lblUpdated"));
-//		    assertTrue(updatedLabel.isDisplayed());
-//	 }
-//	 else {
-//		 // Client already exists
-//		 System.out.println("Client exists");
-//	 }
+		    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
+
+		    
+		    WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
+		    WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
+		    WebElement lastName = driver.findElement(By.id("ctlClientContent_txtLastName"));
+		    WebElement firstName = driver.findElement(By.id("ctlClientContent_txtFirstName"));
+		    WebElement middleName = driver.findElement(By.id("ctlClientContent_txtMiddleName"));
+		    WebElement dob = driver.findElement(By.id("ctlClientContent_ctlDob_txtDate"));
+		    WebElement donID = driver.findElement(By.id("ctlClientContent_ctlDoNInvitationDate_txtDate"));
+		    WebElement iioInvitationSentDate = driver.findElement(By.id("ctlClientContent_txtIIO_InvitationSentDate"));
+		    WebElement iioDosierDate = driver.findElement(By.id("ctlClientContent_txtIIO_DossierSentDate"));
+		    WebElement consentProviderName = driver.findElement(By.id("ctlClientContent_txtConsentProviderName"));
+		    WebElement cftDeclinedDate = driver.findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
+		    WebElement comment = driver.findElement(By.id("ctlClientContent_txtComment"));
+
+		    WebElement[] webpageElements = {transitionCode, regDate, lastName, firstName, middleName, dob, donID, iioInvitationSentDate, iioDosierDate, consentProviderName, cftDeclinedDate,
+		    		comment};
+		    
+		    
+
+		    // Checks that when creating a new client, all fields in the form are empty. (User should be able to see a blank client page form to fill out)
+		    for (int i = 0; i < webpageElements.length; i ++) {
+		    	WebElement webElement = webpageElements[i];
+		    	assertTrue(webElement.getAttribute("value") == ""); // User should be able to see a blank client page form to fill out
+		    }
+
+		    // User should be able to fill out the requested fields on client page.
+		    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
+		    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys(lastNameInput);
+		    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys(firstNameInput);
+		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
+		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys(dobInput);
+		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+		    
+		    // User should be able to view the saved client information with the updated time at the bottom
+		    WebElement updatedLabel = driver.findElement(By.id("ctlClientContent_lblUpdated"));
+		    assertTrue(updatedLabel.isDisplayed());
+	 }
+	 else {
+		 // Client already exists
+		 System.out.println("Client exists");
+	 }
 	  	  
 	
   }
-  
-//  public String extractFname(String fullName) {
-//	  StringBuilder fName = new StringBuilder();
-//	  for (int i = 0; i < fullName.length(); i ++) {
-//		  char letter = fullName.charAt(i);
-//		  if (letter != ',') {
-//			  fName.append(fullName.charAt(i));
-//		  }
-//		  else {
-//			  break;
-//		  }
-//	  }
-//	  return fName.toString();
-//  }
-  
-  public int extractFname(String fullName) {
+  public int getCommaIndex(String fullName) {
 	  int commaIndex = -1;
 	  for (int i = 0; i < fullName.length(); i ++) {
 		  char letter = fullName.charAt(i);
@@ -153,35 +143,4 @@ public class CreateNewClient {
 	  }
 	  return commaIndex;
   }
-//  public String extractLname(String fullName) {
-//	  StringBuilder fName = new StringBuilder();
-//	  for (int i = 0; i < fullName.length(); i ++) {
-//		  char letter = fullName.charAt(i);
-//		  if (letter != ',') {
-//			  fName.append(fullName.charAt(i));
-//		  }
-//		  else {
-//			  break;
-//		  }
-//	  }
-//	  return fName.toString();
-//  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
