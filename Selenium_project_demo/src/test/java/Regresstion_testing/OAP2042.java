@@ -29,7 +29,7 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-public class OAP2042Test {
+public class OAP2042 {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
