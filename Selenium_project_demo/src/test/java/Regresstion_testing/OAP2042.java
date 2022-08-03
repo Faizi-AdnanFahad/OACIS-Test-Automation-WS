@@ -51,7 +51,7 @@ public class OAP2042 {
     driver.manage().window().setSize(new Dimension(1050, 718));
     driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
     driver.findElement(By.id("ctlClientSearch_txtName")).click();
-    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("John Ballen"); // User searches for client name
+    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("Noah Alexander"); // User searches for client name
     driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();
     
     /*========================================????????=================================================*/
@@ -94,9 +94,9 @@ public class OAP2042 {
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     // User inputs all required fields in "Contacts" tab and clicks "Save"
     driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys("John Ballen");
+    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys("Noah Alexander");
     driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).sendKeys("JB F");
+    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).sendKeys("NA F");
     driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).click();
     driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).sendKeys("14");
     driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).click();

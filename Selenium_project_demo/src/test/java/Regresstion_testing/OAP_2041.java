@@ -55,7 +55,7 @@ public class OAP_2041 {
 	 * Search for the client and confirm all the information
 	 */
     driver.findElement(By.id("ctlQueryBox_txtQuery")).click();
-    driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("Mark Alexander");
+    driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("Noah Alexander");
     driver.findElement(By.cssSelector("img")).click();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
     driver.findElement(By.className("GridRow1")).click();

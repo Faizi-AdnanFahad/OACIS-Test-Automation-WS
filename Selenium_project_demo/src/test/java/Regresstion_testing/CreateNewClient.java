@@ -67,9 +67,11 @@ public class CreateNewClient {
      if (atLeastOneResultFound) {
     	 WebElement resultFullName = driver.findElement(By.cssSelector(".GridRow1 td:first-child span")); // contains both first and last names. Needs to be parsed
     	 
-    	 String resultsFname = extractFname(resultFullName.getText());
-    	 
-//    	 System.out.println(resultsFLName.getText());
+    	 int index =  extractFname(resultFullName.getText());
+    	 String resultsFname = resultFullName.getText().substring(0, index);
+    	 String resultsLname = resultFullName.getText().substring(index + 1, resultFullName.getText().length());
+
+    	 System.out.println(resultsLname);
      }
      
 //     boolean duplicateExists = atLeastOneResultFound;
@@ -126,8 +128,60 @@ public class CreateNewClient {
 	
   }
   
-  public String extractFname(String fullName) {
-	  
-	  return "";
+//  public String extractFname(String fullName) {
+//	  StringBuilder fName = new StringBuilder();
+//	  for (int i = 0; i < fullName.length(); i ++) {
+//		  char letter = fullName.charAt(i);
+//		  if (letter != ',') {
+//			  fName.append(fullName.charAt(i));
+//		  }
+//		  else {
+//			  break;
+//		  }
+//	  }
+//	  return fName.toString();
+//  }
+  
+  public int extractFname(String fullName) {
+	  int commaIndex = -1;
+	  for (int i = 0; i < fullName.length(); i ++) {
+		  char letter = fullName.charAt(i);
+		  if (letter == ',') {
+			  commaIndex = i;
+			  break;
+		  }
+	  }
+	  return commaIndex;
   }
+//  public String extractLname(String fullName) {
+//	  StringBuilder fName = new StringBuilder();
+//	  for (int i = 0; i < fullName.length(); i ++) {
+//		  char letter = fullName.charAt(i);
+//		  if (letter != ',') {
+//			  fName.append(fullName.charAt(i));
+//		  }
+//		  else {
+//			  break;
+//		  }
+//	  }
+//	  return fName.toString();
+//  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
