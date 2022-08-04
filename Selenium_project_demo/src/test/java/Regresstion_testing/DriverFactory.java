@@ -57,9 +57,9 @@ public class DriverFactory {
 		 return driver;
 	}
 	
-	public static WebDriver CreateEdgeDriverForSeleniumRecording() { // Can be used when the Selenium recording is needed.
+	public static WebDriver CreateEdgeDriverForSeleniumRecording() { // Can be used when the Selenium recording is needed. 
 		WebDriverManager.edgedriver().setup();
 	    WebDriver driver = new EdgeDriver();
 	    return driver;
-	}
+	} // test
 }
