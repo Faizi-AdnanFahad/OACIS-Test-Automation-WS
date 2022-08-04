@@ -10,6 +10,8 @@ import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -37,10 +39,18 @@ public class OAP_2041 {
   JavascriptExecutor js;
   @Before
   public void setUp() {
-	  WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
-      js = (JavascriptExecutor) driver;
-    vars = new HashMap<String, Object>();
+//    WebDriverManager.edgedriver().setup();
+//    driver = new EdgeDriver();
+//    js = (JavascriptExecutor) driver;
+//    vars = new HashMap<String, Object>();
+    
+    //**********Create IE driver: manually*********************
+	System.setProperty("webdriver.ie.driver","C:\\Users\\FaiziAd\\OneDrive - Government of Ontario\\Desktop\\OACIS Documents\\Test Automation\\SeleniumDrivers\\IEDriverServer.exe");
+	InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+	ieOptions.attachToEdgeChrome();
+	ieOptions.withEdgeExecutablePath("C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe");
+	ieOptions.introduceFlakinessByIgnoringSecurityDomains();//IntroduceInstabilityByIgnoringProtectedModeSettings = true;
+	driver = new InternetExplorerDriver(ieOptions);
   }
   @After
   public void tearDown() {
@@ -55,11 +65,12 @@ public class OAP_2041 {
 	 * Search for the client and confirm all the information
 	 */
     driver.findElement(By.id("ctlQueryBox_txtQuery")).click();
-    driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("Noah Alexander");
+    driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("Nick Josh");
     driver.findElement(By.cssSelector("img")).click();
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
     driver.findElement(By.className("GridRow1")).click();
     
+	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
     WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
     WebElement lockStatus = driver.findElement(By.cssSelector("#ctlClientContent_ddl_LockStatus option"));
     WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
