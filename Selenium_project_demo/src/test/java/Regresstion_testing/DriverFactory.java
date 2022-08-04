@@ -14,7 +14,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class DriverFactory {
 	public static WebDriver CreateIEDriverManually() {//Create IE driver: manually
 		WebDriver driver;
-		System.setProperty("webdriver.ie.driver",System.getProperty("user.dir") + "\\imports\\IEDriverServer.exe");
+		System.setProperty("webdriver.ie.driver",System.getProperty("user.dir") + "\\imports\\WebDrivers\\IEDriverServer.exe");
 		InternetExplorerOptions ieOptions = new InternetExplorerOptions();
 		ieOptions.attachToEdgeChrome();
 		ieOptions.withEdgeExecutablePath("C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe");
@@ -25,6 +25,7 @@ public class DriverFactory {
 	}
 	public static WebDriver CreateIEDriverDriverManager() {//Create IE driver: with Driver manager
 		WebDriver driver;
+		System.setProperty("webdriver.ie.driver",System.getProperty("user.dir") + "\\imports\\WebDrivers\\IEDriverServer.exe");
 		InternetExplorerOptions ieOptions = new InternetExplorerOptions();	
 		ieOptions.attachToEdgeChrome();
 		ieOptions.withEdgeExecutablePath("C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe");
@@ -36,7 +37,7 @@ public class DriverFactory {
 
 	public static WebDriver CreateEdgeDriverManually() {//Create Edge driver manually
 		
-		System.setProperty("webdriver.edge.driver","C:\\Users\\OKeeffKy\\SeleniumDrivers\\edgedriver_win32\\msedgedriver.exe");
+		System.setProperty("webdriver.ie.driver",System.getProperty("user.dir") + "\\imports\\WebDrivers\\msedgedriver.exe");
 		WebDriver driver;
 		EdgeOptions eOptions = new EdgeOptions();
 		eOptions.setBinary("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
@@ -48,7 +49,7 @@ public class DriverFactory {
 	public static WebDriver CreateEdgeDriverDriverManager() {//**********Create Edge Driver using DriverManager
 		 WebDriver driver;
 		 EdgeOptions eOptions = new EdgeOptions();
-		 System.setProperty("webdriver.edge.driver","C:\\Users\\OKeeffKy\\SeleniumDrivers\\edgedriver_win32\\msedgedriver.exe");
+		 System.setProperty("webdriver.ie.driver",System.getProperty("user.dir") + "\\imports\\WebDrivers\\msedgedriver.exe");
 		 eOptions.setBinary("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
 		 //eOptions.addExtensions(new File("C:\\Users\\OKeeffKy\\OneDrive - Government of Ontario\\Documents\\02Projects\\ProgProj\\OACISSeleniumJava\\Selenium-IDE-chromeext.crx"));
 		 driver = WebDriverManager.edgedriver().capabilities(eOptions).create();
