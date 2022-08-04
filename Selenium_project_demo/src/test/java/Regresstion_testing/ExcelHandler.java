@@ -5,6 +5,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.Test;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Iterator;
@@ -14,7 +16,7 @@ public class ExcelHandler {
 	public XSSFSheet GetExcelSheet(String fileName) {
 		XSSFSheet sheet=null;
 		try {
-			File excelFile = new File(System.getProperty("user.dir")+ "\\testData\\" + fileName);
+			File excelFile = new File(System.getProperty("user.dir")+ "\\data\\" + fileName);
 			FileInputStream fileSystem = new FileInputStream(excelFile);
 			XSSFWorkbook book = new XSSFWorkbook(fileSystem);
 		    sheet  = book.getSheetAt(0);
@@ -25,6 +27,14 @@ public class ExcelHandler {
 		return sheet;
 	}
 	
+	
+	@Test
+	public void TestTrial() {
+		XSSFSheet sheet = GetExcelSheet("ClientImportTest.xlsx");
+		XSSFRow row = sheet.getRow(2);
+		System.out.println("client name is "+this.GetCellValue(row, "CLName"));
+		
+	}
 	public String GetCellValue(XSSFRow inRow, String atColumnHeader) {
 		String cellValueAtCol = null;
 		try {
