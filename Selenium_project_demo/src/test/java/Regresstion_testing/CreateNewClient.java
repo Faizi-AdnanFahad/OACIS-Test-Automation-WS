@@ -10,6 +10,8 @@ import static org.hamcrest.core.IsNot.not;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -31,27 +33,39 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+
 public class CreateNewClient {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
   @Before
   public void setUp() {
-	  WebDriverManager.edgedriver().setup();
-      driver = new EdgeDriver();
-      js = (JavascriptExecutor) driver;
-    vars = new HashMap<String, Object>();
+//	  WebDriverManager.edgedriver().setup();
+//      driver = new EdgeDriver();
+//      js = (JavascriptExecutor) driver;
+//    vars = new HashMap<String, Object>();
+	  
+	    //**********Create IE driver: manually*********************
+	System.setProperty("webdriver.ie.driver","C:\\Users\\FaiziAd\\OneDrive - Government of Ontario\\Desktop\\OACIS Documents\\Test Automation\\SeleniumDrivers\\IEDriverServer.exe");
+	InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+	ieOptions.attachToEdgeChrome();
+	ieOptions.withEdgeExecutablePath("C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe");
+	ieOptions.introduceFlakinessByIgnoringSecurityDomains();//IntroduceInstabilityByIgnoringProtectedModeSettings = true;
+	driver = new InternetExplorerDriver(ieOptions);
+	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
   }
+  
   @After
   public void tearDown() {
 //    driver.quit();
   }
+  
   @Test
   public void oAP2041() {
 	 
-	 String lastNameInput = "Noah Alexander";
-     String firstNameInput = "NA F";
-     String dobInput = "2009/10/08";
+	 String lastNameInput = "Nick Josh";
+     String firstNameInput = "NJ F";
+     String dobInput = "2012/12/30";
 
      driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
 	 driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User should be able to view client page
@@ -119,19 +133,19 @@ public class CreateNewClient {
 		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
 		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys(dobInput);
 		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
 		    
 		    // User should be able to view the saved client information with the updated time at the bottom
 		    WebElement updatedLabel = driver.findElement(By.id("ctlClientContent_lblUpdated"));
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
 		    assertTrue(updatedLabel.isDisplayed());
 	 }
 	 else {
 		 // Client already exists
-		 System.out.println("Client exists");
+		 System.out.println("Client already exists");
 	 }
-	  	  
-	
   }
+  
+  
   public int getCommaIndex(String fullName) {
 	  int commaIndex = -1;
 	  for (int i = 0; i < fullName.length(); i ++) {
