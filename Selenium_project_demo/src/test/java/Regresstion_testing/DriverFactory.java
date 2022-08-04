@@ -56,4 +56,10 @@ public class DriverFactory {
 		 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		 return driver;
 	}
+	
+	public static WebDriver CreateEdgeDriverForSeleniumRecording() { // Can be used when the Selenium recording is needed.
+		WebDriverManager.edgedriver().setup();
+	    WebDriver driver = new EdgeDriver();
+	    return driver;
+	}
 }
