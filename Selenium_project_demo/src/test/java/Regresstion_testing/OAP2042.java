@@ -31,15 +31,15 @@ import java.net.URL;
 import java.time.Duration;
 public class OAP2042 {
   private WebDriver driver;
-  private Map<String, Object> vars;
-  JavascriptExecutor js;
+  //private Map<String, Object> vars;//Required if driver is created using DriverManager
+  //JavascriptExecutor js;//Required if driver is created using DriverManager
+  
   @Before
   public void setUp() {
-	WebDriverManager.edgedriver().setup();
-    driver = new EdgeDriver();
-    js = (JavascriptExecutor) driver;
-    vars = new HashMap<String, Object>();
-  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
+	  driver = DriverFactory.CreateIEDriverManually();
+	  // js = (JavascriptExecutor) driver; //Required if driver is created using DriverManager
+	  // vars = new HashMap<String, Object>(); //Required if driver is created using DriverManager
+  
   }
   @After
   public void tearDown() {

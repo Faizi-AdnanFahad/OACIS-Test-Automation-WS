@@ -34,55 +34,47 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 public class OAP_2041 {
-  private WebDriver driver;
-  private Map<String, Object> vars;
-  JavascriptExecutor js;
-  @Before
-  public void setUp() {
-//    WebDriverManager.edgedriver().setup();
-//    driver = new EdgeDriver();
-//    js = (JavascriptExecutor) driver;
-//    vars = new HashMap<String, Object>();
-    
-    //**********Create IE driver: manually*********************
-	System.setProperty("webdriver.ie.driver","C:\\Users\\FaiziAd\\OneDrive - Government of Ontario\\Desktop\\OACIS Documents\\Test Automation\\SeleniumDrivers\\IEDriverServer.exe");
-	InternetExplorerOptions ieOptions = new InternetExplorerOptions();
-	ieOptions.attachToEdgeChrome();
-	ieOptions.withEdgeExecutablePath("C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe");
-	ieOptions.introduceFlakinessByIgnoringSecurityDomains();//IntroduceInstabilityByIgnoringProtectedModeSettings = true;
-	driver = new InternetExplorerDriver(ieOptions);
-  }
-  @After
-  public void tearDown() {
-//    driver.quit();
-  }
-  @Test
-  public void oAP2041() {
+	 private WebDriver driver;
+	 //private Map<String, Object> vars;//Required if driver is created using DriverManager
+	 //JavascriptExecutor js;//Required if driver is created using DriverManager
 	  
-	driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx");
-
-    /*
-	 * Search for the client and confirm all the information
-	 */
-    driver.findElement(By.id("ctlQueryBox_txtQuery")).click();
-    driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("Nick Josh");
-    driver.findElement(By.cssSelector("img")).click();
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
-    driver.findElement(By.className("GridRow1")).click();
-    
-	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
-    WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
-    WebElement lockStatus = driver.findElement(By.cssSelector("#ctlClientContent_ddl_LockStatus option"));
-    WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
-    WebElement iioInvitationSentDate = driver.findElement(By.id("ctlClientContent_txtIIO_InvitationSentDate"));
-    WebElement consentProviderName = driver.findElement(By.id("ctlClientContent_txtConsentProviderName"));
-    WebElement cftDeclinedDate = driver.findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
-
-    assertTrue(transitionCode.getAttribute("value").length() == 5); // User should be able to see a five-character alpha-numerical IIO Transition Code assigned for the client.
-    assertTrue(lockStatus.getText().equals("Unlocked")); // User should be able to see client lock status is set to "Unlocked" by default.
-    assertTrue(regDate.getAttribute("value") == ""); // Registration date field should be empty
-    assertTrue(iioInvitationSentDate.getAttribute("value") == ""); // IIO Invitation Sent Date field should be empty
-    assertTrue(consentProviderName.getAttribute("value") == ""); // IIO Invitation Sent Date field should be empty
-    assertTrue(cftDeclinedDate.getAttribute("value") == ""); // Consent for Transition: Declined Date field should be empty
-  }
+	  @Before
+	  public void setUp() {
+		  driver = DriverFactory.CreateIEDriverManually();
+		  // js = (JavascriptExecutor) driver; //Required if driver is created using DriverManager
+		  // vars = new HashMap<String, Object>(); //Required if driver is created using DriverManager
+	  }
+	  @After
+	  public void tearDown() {
+		  //    driver.quit();
+	  }
+	  @Test
+	  public void oAP2041() {
+		  
+		driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx");
+		
+		/*
+		 * Search for the client and confirm all the information
+		 */
+		driver.findElement(By.id("ctlQueryBox_txtQuery")).click();
+		driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("Nick Josh");
+		driver.findElement(By.cssSelector("img")).click();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
+		driver.findElement(By.className("GridRow1")).click();
+		
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
+		WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
+		WebElement lockStatus = driver.findElement(By.cssSelector("#ctlClientContent_ddl_LockStatus option"));
+		WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
+		WebElement iioInvitationSentDate = driver.findElement(By.id("ctlClientContent_txtIIO_InvitationSentDate"));
+		WebElement consentProviderName = driver.findElement(By.id("ctlClientContent_txtConsentProviderName"));
+		WebElement cftDeclinedDate = driver.findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
+		
+		assertTrue(transitionCode.getAttribute("value").length() == 5); // User should be able to see a five-character alpha-numerical IIO Transition Code assigned for the client.
+		assertTrue(lockStatus.getText().equals("Unlocked")); // User should be able to see client lock status is set to "Unlocked" by default.
+		assertTrue(regDate.getAttribute("value") == ""); // Registration date field should be empty
+		assertTrue(iioInvitationSentDate.getAttribute("value") == ""); // IIO Invitation Sent Date field should be empty
+		assertTrue(consentProviderName.getAttribute("value") == ""); // IIO Invitation Sent Date field should be empty
+		assertTrue(cftDeclinedDate.getAttribute("value") == ""); // Consent for Transition: Declined Date field should be empty
+	  }
 }
