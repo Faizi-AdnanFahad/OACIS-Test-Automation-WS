@@ -61,5 +61,5 @@ public class DriverFactory {
 		WebDriverManager.edgedriver().setup();
 	    WebDriver driver = new EdgeDriver();
 	    return driver;
-	} // test
+	}
 }
