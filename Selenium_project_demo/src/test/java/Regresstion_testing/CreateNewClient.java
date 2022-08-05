@@ -63,9 +63,9 @@ public class CreateNewClient {
   @Test
   public void oAP2041() {
 	 
-	 String lastNameInput = "Nick Josh";
-     String firstNameInput = "NJ F";
-     String dobInput = "2012/12/30";
+	 String lastNameInput = "Amanda Jackson";
+     String firstNameInput = "AJ F";
+     String dobInput = "2014/12/30";
 
      driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
 	 driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User should be able to view client page

@@ -51,7 +51,7 @@ public class OAP2042 {
     driver.manage().window().setSize(new Dimension(1050, 718));
     driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
     driver.findElement(By.id("ctlClientSearch_txtName")).click();
-    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("Noah Alexander"); // User searches for client name
+    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("Amanda Jackson"); // User searches for client name
     driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();
     
     /*========================================????????=================================================*/
@@ -61,9 +61,9 @@ public class OAP2042 {
       */
 //    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
 //    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
-//    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("John Ballen");
-//    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("JB F");
-//    
+//    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("Amanda Jackson parent");
+//    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("AJ P F");
+    
     /*=========================================================================================*/
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
     driver.findElement(By.className("GridRow1")).click();
@@ -88,15 +88,15 @@ public class OAP2042 {
 //    driver.findElement(By.cssSelector("#ctlStandardOperations_lnkSave > u")).click();
 //    driver.findElement(By.cssSelector("#ctlStandardOperations_lnkSave > u")).click();
     
-    
+    /*---------------------------------------------------------------------*/
     driver.findElement(By.id("ctlPageNav_lnkApplications")).click();
     driver.findElement(By.id("ctlStandardOperations_lnkNew")).click(); // User clicks "Applications" and then "New"
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     // User inputs all required fields in "Contacts" tab and clicks "Save"
     driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys("Noah Alexander");
+    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys("Amanda Jackson's parent");
     driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).sendKeys("NA F");
+    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).sendKeys("AJP F");
     driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).click();
     driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).sendKeys("14");
     driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).click();
@@ -105,59 +105,77 @@ public class OAP2042 {
     driver.findElement(By.id("ctlAppContent_txtApplicantStreet")).sendKeys("Main Street");
     driver.findElement(By.id("ctlAppContent_txtApplicantPOBox")).click();
     driver.findElement(By.id("ctlAppContent_txtApplicantCity")).click();
-    {
-      WebElement element = driver.findElement(By.cssSelector("html"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).clickAndHold().perform();
-    }
-    {
-      WebElement element = driver.findElement(By.cssSelector("html"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
-    {
-      WebElement element = driver.findElement(By.cssSelector("html"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).release().perform();
-    }
+    /*---------------------------------------------------------------------*/
+//    {
+//      WebElement element = driver.findElement(By.cssSelector("html"));
+//      Actions builder = new Actions(driver);
+//      builder.moveToElement(element).clickAndHold().perform();
+//    }
+//    {
+//      WebElement element = driver.findElement(By.cssSelector("html"));
+//      Actions builder = new Actions(driver);
+//      builder.moveToElement(element).perform();
+//    }
+//    {
+//      WebElement element = driver.findElement(By.cssSelector("html"));
+//      Actions builder = new Actions(driver);
+//      builder.moveToElement(element).release().perform();
+//    }
+    
+    /*---------------------------------------------------------------------*/
     driver.findElement(By.id("ctlAppContent_txtApplicantCity")).sendKeys("Hamilton");
     driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).click();
     driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).sendKeys("H2K 3J4");
-    {
-      WebElement element = driver.findElement(By.cssSelector("html"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).clickAndHold().perform();
-    }
-    {
-      WebElement element = driver.findElement(By.cssSelector("html"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
-    {
-      WebElement element = driver.findElement(By.cssSelector("html"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).release().perform();
-    }
-    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+    /*---------------------------------------------------------------------*/
+//    {
+//      WebElement element = driver.findElement(By.cssSelector("html"));
+//      Actions builder = new Actions(driver);
+//      builder.moveToElement(element).clickAndHold().perform();
+//    }
+//    {
+//      WebElement element = driver.findElement(By.cssSelector("html"));
+//      Actions builder = new Actions(driver);
+//      builder.moveToElement(element).perform();
+//    }
+//    {
+//      WebElement element = driver.findElement(By.cssSelector("html"));
+//      Actions builder = new Actions(driver);
+//      builder.moveToElement(element).release().perform();
+//    }
+    /*---------------------------------------------------------------------*/
+//    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+    /*---------------------------------------------------------------------*/
     
+//    driver.findElement(By.className("GridRow1")).click();
+
     // User inputs all required fields in "Intake" tab and clicks "Save"
-    driver.findElement(By.cssSelector(".GridRowHighlight > td:nth-child(3)")).click();
+//    driver.findElement(By.cssSelector(".GridRowHighlight > td:nth-child(3)")).click();
     driver.findElement(By.id("ctlAppContent_lbIntakeTab")).click();
     driver.findElement(By.id("ctlAppContent_ddlIntakeProcess")).click();
-    {
-      WebElement dropdown = driver.findElement(By.id("ctlAppContent_ddlIntakeProcess"));
-      dropdown.findElement(By.xpath("//option[. = 'Standard']")).click();
-    }
-    driver.findElement(By.id("ctlAppContent_ddlAppType")).click();
-    {
-      WebElement dropdown = driver.findElement(By.id("ctlAppContent_ddlAppType"));
-      dropdown.findElement(By.xpath("//option[. = 'New']")).click();
-    }
-    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-    driver.findElement(By.cssSelector(".GridRowHighlight > td:nth-child(4)")).click();
-    driver.findElement(By.id("ctlAppContent_lbFollowUpTab")).click();
     
-    // User inputs all required fields in "Follow up" tab and clicks "Save"
+//    WebElement optionStandard = driver.findElement(By.cssSelector("#ctlAppContent_ddlIntakeProcess option:nth-of-type(3)"));
+//    System.out.println(optionStandard.getText());
+    
+//    {
+//      WebElement dropdown = driver.findElement(By.id("ctlAppContent_ddlIntakeProcess"));
+    WebElement dropdown = driver.findElement(By.cssSelector("#ctlAppContent_ddlIntakeProcess option:last-child"));
+    dropdown.click();
+          System.out.println(dropdown.getText());
+//      dropdown.findElement(By.xpath("//option[. = 'Standard']")).click();
+//      WebElement optionStandard = driver.findElement(By.cssSelector("#ctlAppContent_ddlIntakeProcess option:nth-of-type(3)"));
+////      System.out.println(optionStandard.getText());
+//    }
+//    driver.findElement(By.id("ctlAppContent_ddlAppType")).click();
+//    {
+//      WebElement dropdown = driver.findElement(By.id("ctlAppContent_ddlAppType"));
+////      dropdown.findElement(By.xpath("//option[. = 'New']")).click();
+//      
+//    }
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+//    driver.findElement(By.cssSelector(".GridRowHighlight > td:nth-child(4)")).click();
+//    driver.findElement(By.id("ctlAppContent_lbFollowUpTab")).click();
+//    
+//    // User inputs all required fields in "Follow up" tab and clicks "Save"
+//    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
   }
 }
