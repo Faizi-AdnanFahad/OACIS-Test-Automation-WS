@@ -35,23 +35,16 @@ import java.net.URL;
 import java.time.Duration;
 
 public class CreateNewClient {
+  
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
+  
   @Before
   public void setUp() {
-//	  WebDriverManager.edgedriver().setup();
-//      driver = new EdgeDriver();
-//      js = (JavascriptExecutor) driver;
-//    vars = new HashMap<String, Object>();
-	  
-	    //**********Create IE driver: manually*********************
-	System.setProperty("webdriver.ie.driver","C:\\Users\\FaiziAd\\OneDrive - Government of Ontario\\Desktop\\OACIS Documents\\Test Automation\\SeleniumDrivers\\IEDriverServer.exe");
-	InternetExplorerOptions ieOptions = new InternetExplorerOptions();
-	ieOptions.attachToEdgeChrome();
-	ieOptions.withEdgeExecutablePath("C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe");
-	ieOptions.introduceFlakinessByIgnoringSecurityDomains();//IntroduceInstabilityByIgnoringProtectedModeSettings = true;
-	driver = new InternetExplorerDriver(ieOptions);
+	driver = DriverFactory.CreateIEDriverManually();
+    // js = (JavascriptExecutor) driver; //Required if driver is created using DriverManager
+    // vars = new HashMap<String, Object>(); //Required if driver is created using DriverManager
 	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
   }
   
@@ -63,10 +56,11 @@ public class CreateNewClient {
   @Test
   public void oAP2041() {
 	 
-	 String lastNameInput = "Amanda Jackson";
+	 String lastNameInput = "Amanda jj";
      String firstNameInput = "AJ F";
      String dobInput = "2014/12/30";
 
+     System.out.println("Launching Oacis website..");
      driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
 	 driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User should be able to view client page
      driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
@@ -75,22 +69,8 @@ public class CreateNewClient {
      driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();	    
      
 //     WebElement resulted
-     boolean atLeastOneResultFound = !driver.findElements(By.className("GridHeader")).isEmpty();
-     boolean namesMatches = false;
      
-     if (atLeastOneResultFound) {
-    	 WebElement resultFullName = driver.findElement(By.cssSelector(".GridRow1 td:first-child span")); // contains both first and last names. Needs to be parsed
-    	 
-    	 int commaIndex =  getCommaIndex(resultFullName.getText());
-    	 String resultsLastname = resultFullName.getText().substring(0, commaIndex);
-    	 String resultsFirstname = resultFullName.getText().substring(commaIndex + 2, resultFullName.getText().length());
-    	 
-    	 namesMatches = resultsLastname.equals(lastNameInput) && resultsFirstname.equals(firstNameInput);
-    	 System.out.println(namesMatches);
-     }
-     
-     boolean duplicateExists = atLeastOneResultFound && namesMatches;
-    		 				   ;
+     boolean duplicateExists = duplicateExists(firstNameInput, lastNameInput);	 				   ;
 	 if (!duplicateExists) {
 		 	/*
 			 * Creates a client
@@ -127,6 +107,7 @@ public class CreateNewClient {
 		    }
 
 		    // User should be able to fill out the requested fields on client page.
+	    	System.out.println("Entering client's information in OACIS...");
 		    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
 		    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys(lastNameInput);
 		    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys(firstNameInput);
@@ -145,7 +126,7 @@ public class CreateNewClient {
 	 }
   }
   
-  
+  /* Parses a full-name to get the index of comma. Useful for extracting first name and last name from full name. */
   public int getCommaIndex(String fullName) {
 	  int commaIndex = -1;
 	  for (int i = 0; i < fullName.length(); i ++) {
@@ -156,5 +137,24 @@ public class CreateNewClient {
 		  }
 	  }
 	  return commaIndex;
+  }
+  
+  /* returns true if a proposed client's first name, last name and DOB matches one in OACIS. */
+  public boolean duplicateExists(String firstNameInput, String lastNameInput) {
+	  boolean atLeastOneResultFound = !driver.findElements(By.className("GridHeader")).isEmpty();
+	     boolean namesMatches = false;
+	     
+	     if (atLeastOneResultFound) {
+	    	 WebElement resultFullName = driver.findElement(By.cssSelector(".GridRow1 td:first-child span")); // contains both first and last names. Needs to be parsed
+	    	 
+	    	 int commaIndex =  getCommaIndex(resultFullName.getText());
+	    	 String resultsLastname = resultFullName.getText().substring(0, commaIndex);
+	    	 String resultsFirstname = resultFullName.getText().substring(commaIndex + 2, resultFullName.getText().length());
+	    	 
+	    	 namesMatches = resultsLastname.equals(lastNameInput) && resultsFirstname.equals(firstNameInput);
+	     }
+	     
+	     boolean duplicateExists = atLeastOneResultFound && namesMatches;
+	     return duplicateExists;
   }
 }
