@@ -32,8 +32,6 @@ import java.net.URL;
 import java.time.Duration;
 import org.openqa.selenium.support.ui.Select;
 
-
-
 public class OAP2042 {
   private WebDriver driver;
   //private Map<String, Object> vars;//Required if driver is created using DriverManager
@@ -53,161 +51,69 @@ public class OAP2042 {
 //    driver.quit();
   }
   @Test
-  public void oAP2042() {
+  public void oAP2042() {  
+	System.out.println("Launching the Oacis website...");
     driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User navigates to OACIS 
     driver.manage().window().setSize(new Dimension(1050, 718));
     driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
     driver.findElement(By.id("ctlClientSearch_txtName")).click();
-    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("Amanda Jackson"); // User searches for client name
+    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("Richard"); // User searches for client name
     driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();
     
-    /*========================================????????=================================================*/
-     /*
-      * 4. User clicks "New" on side tab
-      * 5. User enters client information and clicks "Save"
-      */
-//    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
-//    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
-//    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys("Amanda Jackson parent");
-//    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys("AJ P F");
     
-    /*=========================================================================================*/
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
     driver.findElement(By.className("GridRow1")).click();
-//    driver.findElement(By.id("ctlClientContent_ctlDob_imgCal")).click();
-//    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
-//    {
-//      WebElement element = driver.findElement(By.cssSelector("html"));
-//      Actions builder = new Actions(driver);
-//      builder.moveToElement(element).clickAndHold().perform();
-//    }
-//    {
-//      WebElement element = driver.findElement(By.cssSelector("html"));
-//      Actions builder = new Actions(driver);
-//      builder.moveToElement(element).perform();
-//    }
-//    {
-//      WebElement element = driver.findElement(By.cssSelector("html"));
-//      Actions builder = new Actions(driver);
-//      builder.moveToElement(element).release().perform();
-//    }
-//    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys("2005/09/11");
-//    driver.findElement(By.cssSelector("#ctlStandardOperations_lnkSave > u")).click();
-//    driver.findElement(By.cssSelector("#ctlStandardOperations_lnkSave > u")).click();
     
-    /*---------------------------------------------------------------------*/
+	System.out.println("Creating a new application...");
     driver.findElement(By.id("ctlPageNav_lnkApplications")).click();
-//    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click(); // User clicks "Applications" and then "New"
-//    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    // User inputs all required fields in "Contacts" tab and clicks "Save"
-//    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).click();
-//    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys("Amanda Jackson's parent");
-//    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).click();
-//    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).sendKeys("AJP F");
-//    driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).click();
-//    driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).sendKeys("14");
-//    driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).click();
-//    driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).sendKeys("679");
-//    driver.findElement(By.id("ctlAppContent_txtApplicantStreet")).click();
-//    driver.findElement(By.id("ctlAppContent_txtApplicantStreet")).sendKeys("Main Street");
-//    driver.findElement(By.id("ctlAppContent_txtApplicantPOBox")).click();
-//    driver.findElement(By.id("ctlAppContent_txtApplicantCity")).click();
-    /*---------------------------------------------------------------------*/
-//    {
-//      WebElement element = driver.findElement(By.cssSelector("html"));
-//      Actions builder = new Actions(driver);
-//      builder.moveToElement(element).clickAndHold().perform();
-//    }
-//    {
-//      WebElement element = driver.findElement(By.cssSelector("html"));
-//      Actions builder = new Actions(driver);
-//      builder.moveToElement(element).perform();
-//    }
-//    {
-//      WebElement element = driver.findElement(By.cssSelector("html"));
-//      Actions builder = new Actions(driver);
-//      builder.moveToElement(element).release().perform();
-//    }
+    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click(); // User clicks "Applications" and then "New"
+    System.out.println("New application is being created...");
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     
-    /*---------------------------------------------------------------------*/
-//    driver.findElement(By.id("ctlAppContent_txtApplicantCity")).sendKeys("Hamilton");
-//    driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).click();
-//    driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).sendKeys("H2K 3J4");
-    /*---------------------------------------------------------------------*/
-//    {
-//      WebElement element = driver.findElement(By.cssSelector("html"));
-//      Actions builder = new Actions(driver);
-//      builder.moveToElement(element).clickAndHold().perform();
-//    }
-//    {
-//      WebElement element = driver.findElement(By.cssSelector("html"));
-//      Actions builder = new Actions(driver);
-//      builder.moveToElement(element).perform();
-//    }
-//    {
-//      WebElement element = driver.findElement(By.cssSelector("html"));
-//      Actions builder = new Actions(driver);
-//      builder.moveToElement(element).release().perform();
-//    }
-    /*---------------------------------------------------------------------*/
-//    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-    /*---------------------------------------------------------------------*/
+    //User inputs all required fields in "Contacts" tab and clicks "Save"
+    System.out.println("The information is being entered...");
+    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).click();
+    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys("Amanda Johsnon");
+    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).click();
+    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).sendKeys("AJP F");
+    driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).click();
+    driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).sendKeys("14");
+    driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).click();
+    driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).sendKeys("679");
+    driver.findElement(By.id("ctlAppContent_txtApplicantStreet")).click();
+    driver.findElement(By.id("ctlAppContent_txtApplicantStreet")).sendKeys("Main Street");
+    driver.findElement(By.id("ctlAppContent_txtApplicantPOBox")).click();
+    driver.findElement(By.id("ctlAppContent_txtApplicantCity")).click();
+    driver.findElement(By.id("ctlAppContent_txtApplicantCity")).sendKeys("Hamilton");
+    driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).click();
+    driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).sendKeys("H2K 3J4");
     
-    driver.findElement(By.className("GridRow1")).click();
-
     // User inputs all required fields in "Intake" tab and clicks "Save"
-//    driver.findElement(By.cssSelector(".GridRowHighlight > td:nth-child(3)")).click();
     driver.findElement(By.id("ctlAppContent_lbIntakeTab")).click();
-    SelectOption("Standard");
-//    driver.findElement(By.id("ctlAppContent_ddlIntakeProcess")).click();
+	WebElement intakeProcess = driver.findElement(By.id("ctlAppContent_ddlIntakeProcess")); // Intake process
+    SelectOption("Standard", intakeProcess);
     
-//    WebElement optionStandard = driver.findElement(By.cssSelector("#ctlAppContent_ddlIntakeProcess option:nth-of-type(3)"));
-//    System.out.println(optionStandard.getText());
-    
-//    {
-//      WebElement dropdown = driver.findElement(By.id("ctlAppContent_ddlIntakeProcess"));
-//    WebElement dropdown = driver.findElement(By.cssSelector("#ctlAppContent_ddlIntakeProcess option:last-child"));
-//    dropdown.click();
-//          System.out.println(dropdown.getText());
-//      dropdown.findElement(By.xpath("//option[. = 'Standard']")).click();
-//      WebElement optionStandard = driver.findElement(By.cssSelector("#ctlAppContent_ddlIntakeProcess option:nth-of-type(3)"));
-////      System.out.println(optionStandard.getText());
-//    }
-//    driver.findElement(By.id("ctlAppContent_ddlAppType")).click();
-//    {
-//      WebElement dropdown = driver.findElement(By.id("ctlAppContent_ddlAppType"));
-////      dropdown.findElement(By.xpath("//option[. = 'New']")).click();
-//      
-//    }
+	WebElement appType = driver.findElement(By.cssSelector("#ctlAppContent_panelIntakeSection1 table #ctlAppContent_ddlAppType")); // Intake process
+    SelectOption("New", appType);
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-//    driver.findElement(By.cssSelector(".GridRowHighlight > td:nth-child(4)")).click();
-//    driver.findElement(By.id("ctlAppContent_lbFollowUpTab")).click();
-//    
-//    // User inputs all required fields in "Follow up" tab and clicks "Save"
-//    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
   }
   
-  public void SelectOption(String optionText) {
+  public void SelectOption(String optionText, WebElement selectElement) {
 		Actions action = new Actions(driver);//Create an object to store a chain of keypresses
-		WebElement foundElement = driver.findElement(By.id("ctlAppContent_ddlIntakeProcess"));//find webelement
-		foundElement.click();//cause the select element to be highlighted
-		Select foundSelect = new Select(foundElement);//convert webelement to select element
-
+		selectElement.click();//cause the select element to be highlighted
+		Select foundSelect = new Select(selectElement);//convert webelement to select element
 
 		List<WebElement> selectOptions = foundSelect.getOptions();//get select options
 		String iOptionValue;
 		for (int i = 0; i < selectOptions.size(); i++) {//cycle through all the options in the dropdown, compare them to desired value
 		
 			iOptionValue = selectOptions.get(i).getText();
-			if (iOptionValue != optionText)
-			{
+			if (!iOptionValue.equals(optionText)) {
 				action.sendKeys(Keys.DOWN);//if not matching, add a 'arrow down' keypress to the chain of key presses to cause the next option to be highlighted
 			}
-			else if (iOptionValue == optionText)
-			{
+			else {
 				action.sendKeys(Keys.TAB);//if matching, tab out of the select element, to allow the curerntly highlighted option to be the selected option
 				break;
-
 			}
 		}
 		action.build().perform();//perform the chain of keypresses
@@ -233,6 +139,4 @@ public class OAP2042 {
 //		driver.switchTo().window(originalWindow); //selecting an option causes focus to be lost from the current window - must switch focus back to browser window
 //									//Requires having already saved the browser window handle somewhere after browser window is initialized - found using driver.CurrentWindowHandle 
 //	}
-  
-  
 }
