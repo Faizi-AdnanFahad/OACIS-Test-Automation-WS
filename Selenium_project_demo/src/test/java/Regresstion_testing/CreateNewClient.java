@@ -56,11 +56,11 @@ public class CreateNewClient {
   @Test
   public void oAP2041() {
 	 
-	 String lastNameInput = "Amanda jj";
-     String firstNameInput = "AJ F";
-     String dobInput = "2014/12/30";
+	 String lastNameInput = "Dwayne";
+     String firstNameInput = "Johnson";
+     String dobInput = "06-Aug-2020"; // The format should be DD-MM-YYYY
 
-     System.out.println("Launching Oacis website..");
+     System.out.println("Launching Oacis website...");
      driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
 	 driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User should be able to view client page
      driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
@@ -68,14 +68,13 @@ public class CreateNewClient {
      driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys(lastNameInput); // User searches for client name
      driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();	    
      
-//     WebElement resulted
-     
-     boolean duplicateExists = duplicateExists(firstNameInput, lastNameInput);	 				   ;
+     System.out.println("Performing a duplicate check...");
+     boolean duplicateExists = duplicateExists(firstNameInput, lastNameInput, dobInput);
 	 if (!duplicateExists) {
 		 	/*
 			 * Creates a client
 			 */
-    	 System.out.println("Creating new client");
+    	 System.out.println("Creating new client...");
 
 //			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 //		    driver.findElement(By.className("GridRow1")).click();
@@ -98,8 +97,7 @@ public class CreateNewClient {
 		    WebElement[] webpageElements = {transitionCode, regDate, lastName, firstName, middleName, dob, donID, iioInvitationSentDate, iioDosierDate, consentProviderName, cftDeclinedDate,
 		    		comment};
 		    
-		    
-
+		
 		    // Checks that when creating a new client, all fields in the form are empty. (User should be able to see a blank client page form to fill out)
 		    for (int i = 0; i < webpageElements.length; i ++) {
 		    	WebElement webElement = webpageElements[i];
@@ -140,21 +138,22 @@ public class CreateNewClient {
   }
   
   /* returns true if a proposed client's first name, last name and DOB matches one in OACIS. */
-  public boolean duplicateExists(String firstNameInput, String lastNameInput) {
+  public boolean duplicateExists(String firstNameInput, String lastNameInput, String dobInput) {
 	  boolean atLeastOneResultFound = !driver.findElements(By.className("GridHeader")).isEmpty();
-	     boolean namesMatches = false;
+	     boolean nameAndDOBMatches = false;
 	     
 	     if (atLeastOneResultFound) {
 	    	 WebElement resultFullName = driver.findElement(By.cssSelector(".GridRow1 td:first-child span")); // contains both first and last names. Needs to be parsed
-	    	 
+	    	 WebElement dob = driver.findElement(By.cssSelector(".GridRow1 td:nth-child(3) span")); // contains Date of birth
+
 	    	 int commaIndex =  getCommaIndex(resultFullName.getText());
 	    	 String resultsLastname = resultFullName.getText().substring(0, commaIndex);
 	    	 String resultsFirstname = resultFullName.getText().substring(commaIndex + 2, resultFullName.getText().length());
 	    	 
-	    	 namesMatches = resultsLastname.equals(lastNameInput) && resultsFirstname.equals(firstNameInput);
+	    	 nameAndDOBMatches = resultsLastname.equals(lastNameInput) && resultsFirstname.equals(firstNameInput) && dobInput.equals(dob.getText());
 	     }
 	     
-	     boolean duplicateExists = atLeastOneResultFound && namesMatches;
+	     boolean duplicateExists = atLeastOneResultFound && nameAndDOBMatches;
 	     return duplicateExists;
   }
 }
