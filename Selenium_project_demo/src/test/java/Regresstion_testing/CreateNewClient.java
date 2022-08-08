@@ -56,11 +56,11 @@ public class CreateNewClient {
   @Test
   public void oAP2041() {
 	 
-	 String lastNameInput = "Dwayne";
-     String firstNameInput = "Johnson";
-     String dobInput = "06-Aug-2020"; // The format should be DD-MM-YYYY
+	 String lastNameInput = "Richard";
+     String firstNameInput = "Marie";
+     String dobInput = "06-Oct-2015"; // The format should be DD-MM-YYYY
 
-     System.out.println("Launching Oacis website...");
+     System.out.println("Launching the Oacis website...");
      driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
 	 driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User should be able to view client page
      driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
@@ -76,11 +76,8 @@ public class CreateNewClient {
 			 */
     	 System.out.println("Creating new client...");
 
-//			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
-//		    driver.findElement(By.className("GridRow1")).click();
 		    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
 
-		    
 		    WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
 		    WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
 		    WebElement lastName = driver.findElement(By.id("ctlClientContent_txtLastName"));
@@ -97,7 +94,6 @@ public class CreateNewClient {
 		    WebElement[] webpageElements = {transitionCode, regDate, lastName, firstName, middleName, dob, donID, iioInvitationSentDate, iioDosierDate, consentProviderName, cftDeclinedDate,
 		    		comment};
 		    
-		
 		    // Checks that when creating a new client, all fields in the form are empty. (User should be able to see a blank client page form to fill out)
 		    for (int i = 0; i < webpageElements.length; i ++) {
 		    	WebElement webElement = webpageElements[i];
