@@ -24,6 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.beust.jcommander.internal.Console;
 
+import Excel_Handlers.ExcelDataByRowColIndex;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -33,7 +34,6 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-import Regresstion_testing.ExcelHandler;
 
 public class CreateNewClient {
   
@@ -57,9 +57,9 @@ public class CreateNewClient {
   @Test
   public void oAP2041() {
 	 /* Reading from an Excel file */
-	 String lastNameInput = ExcelHandler.GetDataFromExcel("ClientList.xlsx", 2, 0);
-     String firstNameInput = ExcelHandler.GetDataFromExcel("ClientList.xlsx", 2, 1);
-     String dobInput = ExcelHandler.GetDataFromExcel("ClientList.xlsx", 2, 2); // The format should be DD-MM-YYYY
+	 String lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientList.xlsx", 3, 0);
+     String firstNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientList.xlsx", 3, 1);
+     String dobInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientList.xlsx", 3, 2); // The format should be DD-MM-YYYY
 
      System.out.println("Launching the Oacis website...");
      driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
@@ -75,7 +75,7 @@ public class CreateNewClient {
 		 	/*
 			 * Creates a client
 			 */
-    	 System.out.println("Creating new client...");
+    	 	System.out.println("Creating new client...");
 
 		    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
 
@@ -114,10 +114,11 @@ public class CreateNewClient {
 		    WebElement updatedLabel = driver.findElement(By.id("ctlClientContent_lblUpdated"));
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
 //		    assertTrue(updatedLabel.isDisplayed());
+			 System.out.println("Client is successfully created!");
 	 }
 	 else {
 		 // Client already exists
-		 System.out.println("Client already exists");
+		 System.out.println("Client already exists in OACIS.");
 	 }
   }
   
