@@ -1,11 +1,15 @@
 package Regresstion_testing;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +17,7 @@ import java.util.Iterator;
 
 public class ExcelHandler {
 	
-	public XSSFSheet GetExcelSheet(String fileName) {
+	public static XSSFSheet GetExcelSheet(String fileName) {
 		XSSFSheet sheet=null;
 		try {
 			File excelFile = new File(System.getProperty("user.dir")+ "\\data\\" + fileName);
@@ -28,14 +32,23 @@ public class ExcelHandler {
 	}
 	
 	
-	@Test
-	public void TestTrial() {
-		XSSFSheet sheet = GetExcelSheet("ClientImportTest.xlsx");
-		XSSFRow row = sheet.getRow(2);
-		System.out.println("client name is "+this.GetCellValue(row, "CLName"));
-		
+//	@Test
+//	public void TestTrial() {
+//		XSSFSheet sheet = GetExcelSheet("ClientImportTest.xlsx");
+//		XSSFRow row = sheet.getRow(2);
+//		System.out.println("client name is "+this.GetCellValue(row, "CLName"));
+//		
+//	}
+	
+	
+	public static String GetDataFromExcel(String filename, int rowNum, int ColNum) {
+		XSSFSheet sheet = GetExcelSheet(filename);
+		DataFormatter formatter = new DataFormatter();
+		String val = formatter.formatCellValue(sheet.getRow(rowNum).getCell(ColNum));
+		return val;
 	}
-	public String GetCellValue(XSSFRow inRow, String atColumnHeader) {
+	
+	public static String GetCellValue(XSSFRow inRow, String atColumnHeader) {
 		String cellValueAtCol = null;
 		try {
 		   // for( Iterator<Row> i = sheet.iterator(); i.hasNext();) {//perform this action for every row
