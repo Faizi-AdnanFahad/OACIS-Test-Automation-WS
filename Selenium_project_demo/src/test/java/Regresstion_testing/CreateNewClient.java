@@ -57,13 +57,12 @@ public class CreateNewClient {
   @Test
   public void oAP2041() {
 	 /* Reading from an Excel file */
-	 String lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientList.xlsx", 3, 0);
-     String firstNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientList.xlsx", 3, 1);
-     String dobInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientList.xlsx", 3, 2); // The format should be DD-MM-YYYY
+	 String lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 0);
+     String firstNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 1);
+     String dobInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 2); // The format should be DD-MM-YYYY
 
      System.out.println("Launching the Oacis website...");
      driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
-	 driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User should be able to view client page
      driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
      driver.findElement(By.id("ctlClientSearch_txtName")).click();
      driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys(lastNameInput); // User searches for client name
@@ -71,6 +70,7 @@ public class CreateNewClient {
      
      System.out.println("Performing a duplicate check...");
      boolean duplicateExists = duplicateExists(firstNameInput, lastNameInput, dobInput);
+     System.out.println(duplicateExists);
 	 if (!duplicateExists) {
 		 	/*
 			 * Creates a client
@@ -78,7 +78,7 @@ public class CreateNewClient {
     	 	System.out.println("Creating new client...");
 
 		    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click();
-
+		    
 		    WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
 		    WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
 		    WebElement lastName = driver.findElement(By.id("ctlClientContent_txtLastName"));
@@ -101,6 +101,7 @@ public class CreateNewClient {
 		    	assertTrue(webElement.getAttribute("value") == ""); // User should be able to see a blank client page form to fill out
 		    }
 
+		    
 		    // User should be able to fill out the requested fields on client page.
 	    	System.out.println("Entering client's information in OACIS...");
 		    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
@@ -122,6 +123,7 @@ public class CreateNewClient {
 	 }
   }
   
+  
   /* Parses a full-name to get the index of comma. Useful for extracting first name and last name from full name. */
   public int getCommaIndex(String fullName) {
 	  int commaIndex = -1;
@@ -136,22 +138,40 @@ public class CreateNewClient {
   }
   
   /* returns true if a proposed client's first name, last name and DOB matches one in OACIS. */
-  public boolean duplicateExists(String firstNameInput, String lastNameInput, String dobInput) {
+  public boolean duplicateExists(String firstNameExcel, String lastNameExcel, String dobExcel) {
 	  boolean atLeastOneResultFound = !driver.findElements(By.className("GridHeader")).isEmpty();
 	     boolean nameAndDOBMatches = false;
 	     
 	     if (atLeastOneResultFound) {
 	    	 WebElement resultFullName = driver.findElement(By.cssSelector(".GridRow1 td:first-child span")); // contains both first and last names. Needs to be parsed
-	    	 WebElement dob = driver.findElement(By.cssSelector(".GridRow1 td:nth-child(3) span")); // contains Date of birth
-
+	    	 WebElement dob = driver.findElement(By.cssSelector(".GridRow1 td:nth-child(4) span")); // contains Date of birth
+	    	 
+	    	 boolean doesDOBMatches = dobMatches(dob.getText(), dobExcel);
+	    	 
 	    	 int commaIndex =  getCommaIndex(resultFullName.getText());
 	    	 String resultsLastname = resultFullName.getText().substring(0, commaIndex);
 	    	 String resultsFirstname = resultFullName.getText().substring(commaIndex + 2, resultFullName.getText().length());
 	    	 
-	    	 nameAndDOBMatches = resultsLastname.equals(lastNameInput) && resultsFirstname.equals(firstNameInput) && dobInput.equals(dob.getText());
+	    	 nameAndDOBMatches = resultsLastname.equals(lastNameExcel) && resultsFirstname.equals(firstNameExcel) && doesDOBMatches;
 	     }
 	     
 	     boolean duplicateExists = atLeastOneResultFound && nameAndDOBMatches;
 	     return duplicateExists;
+  }
+  
+  /* Returns true if the data between OACSIS matches the data in EXCEL*/
+  public boolean dobMatches(String dobOACIS, String dobExcel) {
+	  // Indexed according to this
+	  // 01-Dec.-2022
+	  // 01234567891011
+	  String dayExcel = dobExcel.substring(0, 2);  
+	  String monthExcel = dobExcel.substring(3, 6);
+	  String yearExcel = dobExcel.substring(8, dobExcel.length());
+	  
+	  String dayOACIS = dobOACIS.substring(0, 2);
+	  String monthOACIS = dobOACIS.substring(3, 6);
+	  String yearOACIS = dobOACIS.substring(7, dobOACIS.length());		  
+	  
+	  return dayExcel.equals(dayOACIS) && monthExcel.equals(monthOACIS) && yearExcel.equals(yearOACIS);
   }
 }
