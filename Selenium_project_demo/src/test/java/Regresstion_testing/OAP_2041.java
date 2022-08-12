@@ -51,13 +51,14 @@ public class OAP_2041 {
 	  @Test
 	  public void oAP2041() {
 		  // test
+		System.out.println("Launching the Oacis website...");
 		driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx");
 		
 		/*
 		 * Search for the client and confirm all the information
 		 */
 		driver.findElement(By.id("ctlQueryBox_txtQuery")).click();
-		driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("Nick Josh");
+		driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("CLNameOne"); // assumes that the client exists
 		driver.findElement(By.cssSelector("img")).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		driver.findElement(By.className("GridRow1")).click();
@@ -70,11 +71,13 @@ public class OAP_2041 {
 		WebElement consentProviderName = driver.findElement(By.id("ctlClientContent_txtConsentProviderName"));
 		WebElement cftDeclinedDate = driver.findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
 		
+		System.out.println("Checking that all fields are empty...");
 		assertTrue(transitionCode.getAttribute("value").length() == 5); // User should be able to see a five-character alpha-numerical IIO Transition Code assigned for the client.
 		assertTrue(lockStatus.getText().equals("Unlocked")); // User should be able to see client lock status is set to "Unlocked" by default.
 		assertTrue(regDate.getAttribute("value") == ""); // Registration date field should be empty
 		assertTrue(iioInvitationSentDate.getAttribute("value") == ""); // IIO Invitation Sent Date field should be empty
 		assertTrue(consentProviderName.getAttribute("value") == ""); // IIO Invitation Sent Date field should be empty
 		assertTrue(cftDeclinedDate.getAttribute("value") == ""); // Consent for Transition: Declined Date field should be empty
+		System.out.println("All fields are empty. Verified!");
 	  }
 }

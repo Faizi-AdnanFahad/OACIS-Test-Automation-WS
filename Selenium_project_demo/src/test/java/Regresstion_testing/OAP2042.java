@@ -57,7 +57,7 @@ public class OAP2042 {
     driver.manage().window().setSize(new Dimension(1050, 718));
     driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
     driver.findElement(By.id("ctlClientSearch_txtName")).click();
-    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("Richard"); // User searches for client name
+    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("CLNameTwo"); // User searches for client name
     driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();
     
     
@@ -71,7 +71,7 @@ public class OAP2042 {
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     
     //User inputs all required fields in "Contacts" tab and clicks "Save"
-    System.out.println("The information is being entered...");
+    System.out.println("The contact information is being entered...");
     driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).click();
     driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys("Amanda Johsnon");
     driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).click();
@@ -89,13 +89,15 @@ public class OAP2042 {
     driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).sendKeys("H2K 3J4");
     
     // User inputs all required fields in "Intake" tab and clicks "Save"
+    System.out.println("Choosing the application type...");
     driver.findElement(By.id("ctlAppContent_lbIntakeTab")).click();
 	WebElement intakeProcess = driver.findElement(By.id("ctlAppContent_ddlIntakeProcess")); // Intake process
-    SelectOption("Standard", intakeProcess);
+    this.SelectOption("Standard", intakeProcess);
     
 	WebElement appType = driver.findElement(By.cssSelector("#ctlAppContent_panelIntakeSection1 table #ctlAppContent_ddlAppType")); // Intake process
     SelectOption("New", appType);
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+    System.out.println("The application has been successfully created!");
   }
   
   public void SelectOption(String optionText, WebElement selectElement) {

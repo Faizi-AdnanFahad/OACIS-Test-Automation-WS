@@ -57,9 +57,39 @@ public class CreateNewClient {
   @Test
   public void oAP2041() {
 	 /* Reading from an Excel file */
-	 String lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 0);
-     String firstNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 1);
-     String dobInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 2); // The format should be DD-MM-YYYY
+	 
+	  String input = "";
+	  String lastNameInput = "";
+	  String firstNameInput = "";
+	  String dobInput = "";
+	  
+	  while(!input.toUpperCase().equals("E") || !input.toUpperCase().equals("C")) {
+		  Scanner reader = new Scanner(System.in);
+		  System.out.println("How do you want to enter the client information? (E for EXCEL or C for CONSOLE)");
+		  input = reader.nextLine();
+		  if (input.toUpperCase().equals("E")) {
+			  lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 0);
+			  firstNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 1);
+			  dobInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 2); // The format should be DD-MM-YYYY
+			  reader.close();
+			  break;
+		  }
+		  else if (input.toUpperCase().equals("C")) {
+			  System.out.println("Client Last Name: ");
+			  lastNameInput = reader.nextLine();
+			  
+			  System.out.println("Client First Name: ");
+			  firstNameInput = reader.nextLine();
+			  
+			  System.out.println("Client DOB: ");
+			  dobInput = reader.nextLine();
+			  reader.close();
+			  break;
+		  }
+	  }
+	  
+	  
+	 
 
      System.out.println("Launching the Oacis website...");
      driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
@@ -70,7 +100,7 @@ public class CreateNewClient {
      
      System.out.println("Performing a duplicate check...");
      boolean duplicateExists = duplicateExists(firstNameInput, lastNameInput, dobInput);
-     System.out.println(duplicateExists);
+     System.out.println("Duplicate exists? -->" +duplicateExists);
 	 if (!duplicateExists) {
 		 	/*
 			 * Creates a client
