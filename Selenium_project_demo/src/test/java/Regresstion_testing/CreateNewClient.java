@@ -41,6 +41,10 @@ public class CreateNewClient {
   private Map<String, Object> vars;
   JavascriptExecutor js;
   
+  String lastNameInput;
+  String firstNameInput;
+  String dobInput;
+  
   @Before
   public void setUp() {
 	driver = DriverFactory.CreateIEDriverManually();
@@ -56,50 +60,19 @@ public class CreateNewClient {
   
   @Test
   public void oAP2041() {
-	 /* Reading from an Excel file */
 	 
-	  String input = "";
-	  String lastNameInput = "";
-	  String firstNameInput = "";
-	  String dobInput = "";
+	  this.setInputOption();
 	  
-	  while(!input.toUpperCase().equals("E") || !input.toUpperCase().equals("C")) {
-		  Scanner reader = new Scanner(System.in);
-		  System.out.println("How do you want to enter the client information? (E for EXCEL or C for CONSOLE)");
-		  input = reader.nextLine();
-		  if (input.toUpperCase().equals("E")) {
-			  lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 0);
-			  firstNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 1);
-			  dobInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 2); // The format should be DD-MM-YYYY
-			  reader.close();
-			  break;
-		  }
-		  else if (input.toUpperCase().equals("C")) {
-			  System.out.println("Client Last Name: ");
-			  lastNameInput = reader.nextLine();
-			  
-			  System.out.println("Client First Name: ");
-			  firstNameInput = reader.nextLine();
-			  
-			  System.out.println("Client DOB: ");
-			  dobInput = reader.nextLine();
-			  reader.close();
-			  break;
-		  }
-	  }
-	  
-	  
-	 
 
      System.out.println("Launching the Oacis website...");
      driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
      driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
      driver.findElement(By.id("ctlClientSearch_txtName")).click();
-     driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys(lastNameInput); // User searches for client name
+     driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys(this.lastNameInput); // User searches for client name
      driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();	    
      
      System.out.println("Performing a duplicate check...");
-     boolean duplicateExists = duplicateExists(firstNameInput, lastNameInput, dobInput);
+     boolean duplicateExists = duplicateExists(this.firstNameInput, this.lastNameInput, dobInput);
      System.out.println("Duplicate exists? -->" +duplicateExists);
 	 if (!duplicateExists) {
 		 	/*
@@ -135,10 +108,10 @@ public class CreateNewClient {
 		    // User should be able to fill out the requested fields on client page.
 	    	System.out.println("Entering client's information in OACIS...");
 		    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
-		    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys(lastNameInput);
-		    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys(firstNameInput);
+		    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys(this.lastNameInput);
+		    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys(this.firstNameInput);
 		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
-		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys(dobInput);
+		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys(this.dobInput);
 		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
 		    
 		    // User should be able to view the saved client information with the updated time at the bottom
@@ -153,6 +126,36 @@ public class CreateNewClient {
 	 }
   }
   
+  /* Gives the client two option to enter data. Excel or manually from console. */
+  public void setInputOption() {
+	  String input = "";
+	  while(!input.toUpperCase().equals("E") || !input.toUpperCase().equals("C")) {
+		  Scanner reader = new Scanner(System.in);
+		  System.out.println("How do you want to enter the client information? (E for EXCEL or C for CONSOLE)");
+		  input = reader.nextLine();
+		  if (input.toUpperCase().equals("E")) {
+				 /* Reading from an Excel file */
+			  this.lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 0);
+			  this.firstNameInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 1);
+			  this.dobInput = ExcelDataByRowColIndex.GetDataFromExcel("ClientListDemo.xlsx", 1, 2); // The format should be DD-MM-YYYY
+			  reader.close();
+			  break;
+		  }
+		  else if (input.toUpperCase().equals("C")) {
+			  	/* Getting inputs from console. */
+			  System.out.println("Client Last Name: ");
+			  this.lastNameInput = reader.nextLine();
+			  
+			  System.out.println("Client First Name: ");
+			  this.firstNameInput = reader.nextLine();
+			  
+			  System.out.println("Client DOB: ");
+			  this.dobInput = reader.nextLine();
+			  reader.close();
+			  break;
+		  }
+	  }
+  }
   
   /* Parses a full-name to get the index of comma. Useful for extracting first name and last name from full name. */
   public int getCommaIndex(String fullName) {
