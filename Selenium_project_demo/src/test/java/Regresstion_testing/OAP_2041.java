@@ -50,19 +50,18 @@ public class OAP_2041 {
 	  }
 	  @Test
 	  public void oAP2041() {
-		  // test
+		String lastName = "CLNameFour";
+		String firstName = "CFNameFour";
+		String dob = "01-Dec-2006";
+		  
 		ClientDriver cd = new ClientDriver(); 
 		cd.launchOACIS(); // User navigates to OACIS
 		  
-		/*
-		 * Search for the client and confirm all the information
-		 */
+		// Search for the client and confirm all the information
+		cd.searchForClientByLastName(lastName);
+		// Creates a client if a it is unique in OACIS.
+		cd.createClient(lastName, firstName, dob);
 		
-		cd.searchForClientByLastName("CLNameOne");
-		cd.createClient(null, null, null);
-		
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
-		driver.findElement(By.className("GridRow1")).click();
 		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
 		WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));

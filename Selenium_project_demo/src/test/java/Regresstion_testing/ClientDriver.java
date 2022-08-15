@@ -36,6 +36,7 @@ public class ClientDriver {
 	}
 	
 	public void createClient(String lastNameInput, String firstNameInput, String dobInput) {
+	     System.out.println("Performing a duplicate check...");
 	     boolean duplicateExists = duplicateExists(firstNameInput, lastNameInput, dobInput);
 	     if (!duplicateExists) {
 			 	/*
@@ -125,20 +126,31 @@ public class ClientDriver {
 		  }
 		  return commaIndex;
 	  }
+
 	  
 	  /* Helper Method for 'duplicate exists '*/
 	  /* Returns true if the data between OACSIS matches the data in EXCEL*/
 	  public boolean dobMatches(String dobOACIS, String dobExcel) {
-		  // Indexed according to this
+		  // Indexed according to this 
 		  // 01-Dec.-2022
 		  // 01234567891011
-		  String dayExcel = dobExcel.substring(0, 2);  
-		  String monthExcel = dobExcel.substring(3, 6);
-		  String yearExcel = dobExcel.substring(8, dobExcel.length());
+		  String dayExcel = ""; 
+		  String monthExcel = "";
+		  String yearExcel = "";
+		  if (dobExcel.charAt(1) == '-') {
+			  dayExcel = "0" + dobExcel.charAt(0); 
+			  monthExcel = dobExcel.substring(2, 5);
+			  yearExcel = dobExcel.substring(6, dobExcel.length());
+		  }
+		  else {
+			  dayExcel = dobExcel.substring(0, 2);
+			  monthExcel = dobExcel.substring(3, 6);
+			  yearExcel = dobExcel.substring(7, dobExcel.length());
+		  }
 		  
 		  String dayOACIS = dobOACIS.substring(0, 2);
 		  String monthOACIS = dobOACIS.substring(3, 6);
-		  String yearOACIS = dobOACIS.substring(7, dobOACIS.length());		  
+		  String yearOACIS = dobOACIS.substring(9, dobOACIS.length());		  
 		  
 		  return dayExcel.equals(dayOACIS) && monthExcel.equals(monthOACIS) && yearExcel.equals(yearOACIS);
 	  }
@@ -146,13 +158,6 @@ public class ClientDriver {
 
 	  // put very common functionalies in this file. Like creating applications, searching....
 	  // Do the verfying or testing at each OAP versions.
-
-
-
-
-
-
-
 
 
 
