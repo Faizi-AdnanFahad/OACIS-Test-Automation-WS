@@ -51,15 +51,16 @@ public class OAP_2041 {
 	  @Test
 	  public void oAP2041() {
 		  // test
-		System.out.println("Launching the Oacis website...");
-		driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx");
-		
+		ClientDriver cd = new ClientDriver(); 
+		cd.launchOACIS(); // User navigates to OACIS
+		  
 		/*
 		 * Search for the client and confirm all the information
 		 */
-		driver.findElement(By.id("ctlQueryBox_txtQuery")).click();
-		driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys("CLNameOne"); // assumes that the client exists
-		driver.findElement(By.cssSelector("img")).click();
+		
+		cd.searchForClientByLastName("CLNameOne");
+		cd.createClient(null, null, null);
+		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		driver.findElement(By.className("GridRow1")).click();
 		
@@ -79,5 +80,6 @@ public class OAP_2041 {
 		assertTrue(consentProviderName.getAttribute("value") == ""); // IIO Invitation Sent Date field should be empty
 		assertTrue(cftDeclinedDate.getAttribute("value") == ""); // Consent for Transition: Declined Date field should be empty
 		System.out.println("All fields are empty. Verified!");
+		System.out.println("OAP 2041 is PASSED!");
 	  }
 }
