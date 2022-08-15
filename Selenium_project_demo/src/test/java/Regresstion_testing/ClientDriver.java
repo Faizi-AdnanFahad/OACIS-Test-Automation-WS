@@ -77,11 +77,8 @@ public class ClientDriver {
 			    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
 			    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys(dobInput);
 			    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-			    
-			    // User should be able to view the saved client information with the updated time at the bottom
-			    WebElement updatedLabel = driver.findElement(By.id("ctlClientContent_lblUpdated"));
-				driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
-//			    assertTrue(updatedLabel.isDisplayed());
+			    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+
 				 System.out.println("Client is successfully created!");
 		 }
 		 else {
@@ -145,7 +142,7 @@ public class ClientDriver {
 		  else {
 			  dayExcel = dobExcel.substring(0, 2);
 			  monthExcel = dobExcel.substring(3, 6);
-			  yearExcel = dobExcel.substring(7, dobExcel.length());
+			  yearExcel = dobExcel.substring(9, dobExcel.length());
 		  }
 		  
 		  String dayOACIS = dobOACIS.substring(0, 2);

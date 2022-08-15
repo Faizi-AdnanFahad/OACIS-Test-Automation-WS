@@ -50,8 +50,8 @@ public class OAP_2041 {
 	  }
 	  @Test
 	  public void oAP2041() {
-		String lastName = "CLNameFour";
-		String firstName = "CFNameFour";
+		String lastName = "CLNameTen11";
+		String firstName = "CFNameTen11";
 		String dob = "01-Dec-2006";
 		  
 		ClientDriver cd = new ClientDriver(); 
@@ -62,6 +62,10 @@ public class OAP_2041 {
 		// Creates a client if a it is unique in OACIS.
 		cd.createClient(lastName, firstName, dob);
 		
+	    // User should be able to view the saved client information with the updated time at the bottom
+	    WebElement updatedLabel = driver.findElement(By.id("ctlClientContent_lblUpdated"));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
+	    assertTrue(updatedLabel.isDisplayed());
 		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
 		WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
