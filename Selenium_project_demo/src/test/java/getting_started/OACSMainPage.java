@@ -26,7 +26,6 @@ public class OACSMainPage {
         oapSearchField.sendKeys("OAP0018295");
         searchbtn.click();
 //        driver.quit();
-        // test
     }
 }
 
