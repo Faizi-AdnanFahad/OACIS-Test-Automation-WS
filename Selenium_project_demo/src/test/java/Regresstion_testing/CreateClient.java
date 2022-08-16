@@ -1,5 +1,6 @@
 package Regresstion_testing;
 
+import java.time.Duration;
 import java.util.Scanner;
 
 import Excel_Handlers.ExcelDataByRowColIndex;
@@ -24,15 +25,23 @@ public class CreateClient {
 				  String excelFileName = reader.nextLine();
 				  excelFileName += ".xlsx";
 				  // TBD: Implement a loop to enter all client information
-				  lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, 1, 0);
-				  firstNameInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, 1, 1);
-				  dobInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, 1, 2); // The format should be DD-MM-YYYY
 				  
-				  ClientDriver client = new ClientDriver();
-				  client.launchOACIS();
-				  client.searchForClientByLastName(lastNameInput);
-				  client.createClient(lastNameInput, firstNameInput, dobInput);
-				  reader.close();
+				  int rowNum = 1;
+				  lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, 2, 0);
+				  
+				  while (lastNameInput !=  "") {
+					  lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, rowNum, 0);
+					  firstNameInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, rowNum, 1);
+					  dobInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, rowNum, 2); // The format should be DD-MM-YYYY
+					  ClientDriver client = new ClientDriver();
+					  client.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+					  client.launchOACIS();
+					  client.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+					  client.searchForClientByLastName(lastNameInput);
+					  client.createClient(lastNameInput, firstNameInput, dobInput);
+					  reader.close();
+					  rowNum ++;
+				  	}
 				  break;
 			  }
 			  else if (input.toUpperCase().equals("C")) {
@@ -47,6 +56,8 @@ public class CreateClient {
 				  dobInput = reader.nextLine();
 				  
 				  ClientDriver client = new ClientDriver();
+				  client.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+				  client.launchOACIS();
 				  client.searchForClientByLastName(lastNameInput);
 				  client.createClient(lastNameInput, firstNameInput, dobInput);
 				  reader.close();
