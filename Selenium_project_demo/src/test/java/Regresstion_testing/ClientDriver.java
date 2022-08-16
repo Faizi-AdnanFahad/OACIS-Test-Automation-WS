@@ -23,12 +23,18 @@ public class ClientDriver {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 	
+	public WebDriver getDriver() {
+		return this.driver;
+	}
+	
 	public void launchOACIS() {
 		 System.out.println("Launching the Oacis website...");
 		 driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
 	}
+	
 
 	public void searchForClientByLastName(String lastNameInput) {
+		 driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks on the "Client" tab
 		 driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks on the "Client" tab
 		 driver.findElement(By.id("ctlClientSearch_txtName")).click();
 		 driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys(lastNameInput); // User searches for client name
@@ -151,51 +157,4 @@ public class ClientDriver {
 		  
 		  return dayExcel.equals(dayOACIS) && monthExcel.equals(monthOACIS) && yearExcel.equals(yearOACIS);
 	  }
-
-
-	  // put very common functionalies in this file. Like creating applications, searching....
-	  // Do the verfying or testing at each OAP versions.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
