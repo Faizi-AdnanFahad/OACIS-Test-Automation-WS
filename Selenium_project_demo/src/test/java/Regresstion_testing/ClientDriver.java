@@ -41,58 +41,62 @@ public class ClientDriver {
 		 driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();	   
 	}
 	
+	/* Given last name, first name and date of birth, creates a client in OACIS */
 	public void createClient(String lastNameInput, String firstNameInput, String dobInput) {
-	     System.out.println("Performing a duplicate check...");
-	     boolean duplicateExists = duplicateExists(firstNameInput, lastNameInput, dobInput);
-	     if (!duplicateExists) {
-			 	/*
-				 * Creates a client
-				 */
-	    	 	System.out.println("Creating new client...");
+	        /*
+			 * Creates a client
+			 */
+ 	 	   System.out.println("Creating new client...");
 
-			    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click(); // User clicks on "New" on the side tab
-			    
-			    WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
-			    WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
-			    WebElement lastName = driver.findElement(By.id("ctlClientContent_txtLastName"));
-			    WebElement firstName = driver.findElement(By.id("ctlClientContent_txtFirstName"));
-			    WebElement middleName = driver.findElement(By.id("ctlClientContent_txtMiddleName"));
-			    WebElement dob = driver.findElement(By.id("ctlClientContent_ctlDob_txtDate"));
-			    WebElement donID = driver.findElement(By.id("ctlClientContent_ctlDoNInvitationDate_txtDate"));
-			    WebElement iioInvitationSentDate = driver.findElement(By.id("ctlClientContent_txtIIO_InvitationSentDate"));
-			    WebElement iioDosierDate = driver.findElement(By.id("ctlClientContent_txtIIO_DossierSentDate"));
-			    WebElement consentProviderName = driver.findElement(By.id("ctlClientContent_txtConsentProviderName"));
-			    WebElement cftDeclinedDate = driver.findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
-			    WebElement comment = driver.findElement(By.id("ctlClientContent_txtComment"));
+		    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click(); // User clicks on "New" on the side tab
+		    
+		    WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
+		    WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
+		    WebElement lastName = driver.findElement(By.id("ctlClientContent_txtLastName"));
+		    WebElement firstName = driver.findElement(By.id("ctlClientContent_txtFirstName"));
+		    WebElement middleName = driver.findElement(By.id("ctlClientContent_txtMiddleName"));
+		    WebElement dob = driver.findElement(By.id("ctlClientContent_ctlDob_txtDate"));
+		    WebElement donID = driver.findElement(By.id("ctlClientContent_ctlDoNInvitationDate_txtDate"));
+		    WebElement iioInvitationSentDate = driver.findElement(By.id("ctlClientContent_txtIIO_InvitationSentDate"));
+		    WebElement iioDosierDate = driver.findElement(By.id("ctlClientContent_txtIIO_DossierSentDate"));
+		    WebElement consentProviderName = driver.findElement(By.id("ctlClientContent_txtConsentProviderName"));
+		    WebElement cftDeclinedDate = driver.findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
+		    WebElement comment = driver.findElement(By.id("ctlClientContent_txtComment"));
 
-			    WebElement[] webpageElements = {transitionCode, regDate, lastName, firstName, middleName, dob, donID, iioInvitationSentDate, iioDosierDate, consentProviderName, cftDeclinedDate,
-			    		comment};
-			    
-			    // Checks that when creating a new client, all fields in the form are empty. (User should be able to see a blank client page form to fill out)
-			    for (int i = 0; i < webpageElements.length; i ++) {
-			    	WebElement webElement = webpageElements[i];
-			    	assertTrue(webElement.getAttribute("value") == ""); // User should be able to see a blank client page form to fill out
-			    }
+		    WebElement[] webpageElements = {transitionCode, regDate, lastName, firstName, middleName, dob, donID, iioInvitationSentDate, iioDosierDate, consentProviderName, cftDeclinedDate,
+		    		comment};
+		    
+		    // Checks that when creating a new client, all fields in the form are empty. (User should be able to see a blank client page form to fill out)
+		    for (int i = 0; i < webpageElements.length; i ++) {
+		    	WebElement webElement = webpageElements[i];
+		    	assertTrue(webElement.getAttribute("value") == ""); // User should be able to see a blank client page form to fill out
+		    }
 
-			    
-			    // User should be able to fill out the requested fields on client page.
-		    	System.out.println("Entering client's information in OACIS...");
-			    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
-			    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys(lastNameInput);
-			    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys(firstNameInput);
-			    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
-			    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys(dobInput);
-			    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-			    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+		    
+		    // User should be able to fill out the requested fields on client page.
+	    	System.out.println("Entering client's information in OACIS...");
+		    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
+		    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys(lastNameInput);
+		    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys(firstNameInput);
+		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
+		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys(dobInput);
+		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
+		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
 
-				 System.out.println("Client is successfully created!");
-		 }
-		 else {
-			 // Client already exists
-			 System.out.println("Client already exists in OACIS.");
-		 }
+			 System.out.println("Client is successfully created!");
+			 
+			 // TBD Duplicate Checking Once the main objective (Regression Testing is automated)
+//		     System.out.println("Performing a duplicate check...");
+//			 boolean duplicateExists = duplicateExists(firstNameInput, lastNameInput, dobInput);
+//		     if (!duplicateExists) {
+//			 }
+//			 else {
+//				 // Client already exists
+//				 System.out.println("Client already exists in OACIS.");
+//			 }
 	}
-
+	
+	/*==============================================TBD============================================================*/
 	/* returns true if a proposed client's first name, last name and DOB matches one in OACIS. */
 	  public boolean duplicateExists(String firstNameExcel, String lastNameExcel, String dobExcel) {
 		  boolean atLeastOneResultFound = !driver.findElements(By.className("GridHeader")).isEmpty();
@@ -157,4 +161,5 @@ public class ClientDriver {
 		  
 		  return dayExcel.equals(dayOACIS) && monthExcel.equals(monthOACIS) && yearExcel.equals(yearOACIS);
 	  }
+		/*==========================================================================================================*/
 }
