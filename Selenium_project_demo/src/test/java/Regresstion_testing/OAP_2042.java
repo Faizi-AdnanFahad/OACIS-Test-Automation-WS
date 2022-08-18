@@ -32,7 +32,7 @@ import java.net.URL;
 import java.time.Duration;
 import org.openqa.selenium.support.ui.Select;
 
-public class OAP2042 {
+public class OAP_2042 {
   private WebDriver driver;
   //private Map<String, Object> vars;//Required if driver is created using DriverManager
   //JavascriptExecutor js;//Required if driver is created using DriverManager
@@ -51,27 +51,20 @@ public class OAP2042 {
 //    driver.quit();
   }
   @Test
-  public void oAP2042() {  
-	System.out.println("Launching the Oacis website...");
-    driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User navigates to OACIS 
-    driver.manage().window().setSize(new Dimension(1050, 718));
-    driver.findElement(By.id("ctlPrimaryNav_lnkClient")).click(); // User clicks the "client" page 
-    driver.findElement(By.id("ctlClientSearch_txtName")).click();
-    driver.findElement(By.id("ctlClientSearch_txtName")).sendKeys("CLNameTwo"); // User searches for client name
-    driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();
-    
+  public void oAP2042() {
+	String lastName = "CLNameTwo";
+	ClientDriver cd = new ClientDriver();
+	cd.launchOACIS(); // User navigates to OACIS
+	cd.searchForClientByLastName(lastName); // User searches for client name
     
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
-    driver.findElement(By.className("GridRow1")).click();
+    driver.findElement(By.className("GridRow1")).click(); // clicks the first client that appears
     
-	System.out.println("Creating a new application...");
-    driver.findElement(By.id("ctlPageNav_lnkApplications")).click();
-    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click(); // User clicks "Applications" and then "New"
-    System.out.println("New application is being created...");
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	cd.createNewApplication();
     
     //User inputs all required fields in "Contacts" tab and clicks "Save"
     System.out.println("The contact information is being entered...");
+    driver.findElement(By.id("ctlAppContent_lbContactsTab")).click();
     driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).click();
     driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys("Amanda Johsnon");
     driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).click();
