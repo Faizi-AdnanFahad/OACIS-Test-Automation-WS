@@ -52,7 +52,7 @@ public class OAP_2042 {
   }
   @Test
   public void oAP2042() {
-	String lastName = "CLNameTwo";
+	String lastName = "CLNameFive";
 	ClientDriver cd = new ClientDriver();
 	cd.launchOACIS(); // User navigates to OACIS
 	cd.searchForClientByLastName(lastName); // User searches for client name
@@ -60,40 +60,38 @@ public class OAP_2042 {
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
     driver.findElement(By.className("GridRow1")).click(); // clicks the first client that appears
     
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 	cd.createNewApplication();
-    
+	
+	Map<String, String> contactObj = new HashMap<String, String>();
     //User inputs all required fields in "Contacts" tab and clicks "Save"
-    System.out.println("The contact information is being entered...");
-    driver.findElement(By.id("ctlAppContent_lbContactsTab")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys("Amanda Johsnon");
-    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).sendKeys("AJP F");
-    driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).sendKeys("14");
-    driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).sendKeys("679");
-    driver.findElement(By.id("ctlAppContent_txtApplicantStreet")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantStreet")).sendKeys("Main Street");
-    driver.findElement(By.id("ctlAppContent_txtApplicantPOBox")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantCity")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantCity")).sendKeys("Hamilton");
-    driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).click();
-    driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).sendKeys("H2K 3J4");
+	contactObj.put("applicantFirstName", "Amanda Johsnon");
+	contactObj.put("applicantLastName", "AJP F");
+	contactObj.put("unitNum", "14");
+	contactObj.put("streetNum", "144");
+	contactObj.put("streetName", "Main Street");
+	contactObj.put("city", "Hamilton");
+	contactObj.put("postalCode", "H1J 2K4");
+
+	cd.fillUpContactTab(contactObj);
     
     // User inputs all required fields in "Intake" tab and clicks "Save"
     System.out.println("Choosing the application type...");
     driver.findElement(By.id("ctlAppContent_lbIntakeTab")).click();
-	WebElement intakeProcess = driver.findElement(By.id("ctlAppContent_ddlIntakeProcess")); // Intake process
-    this.SelectOption("Standard", intakeProcess);
+	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	WebElement intakeProcessDropdown = driver.findElement(By.id("ctlAppContent_ddlIntakeProcess")); // Intake process
+    this.SelectOption("Standard", intakeProcessDropdown, originalWindow);
     
-	WebElement appType = driver.findElement(By.cssSelector("#ctlAppContent_panelIntakeSection1 table #ctlAppContent_ddlAppType")); // Intake process
-    SelectOption("New", appType);
+	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	WebElement appTypeDropdown = driver.findElement(By.cssSelector("#ctlAppContent_panelIntakeSection1 table #ctlAppContent_ddlAppType")); // Intake process
+    this.SelectOption("New", appTypeDropdown, originalWindow);
     driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-    System.out.println("The application has been successfully created!");
-  }
+    System.out.println("The Intake tab has been filled!");
+    System.out.println("**********************************************************");  }
   
-  public void SelectOption(String optionText, WebElement selectElement) {
+  /* Helper method */
+	/* Given a drop-down web-element with a text option, it selects the option in the drop-down */
+	public void SelectOption(String optionText, WebElement selectElement, String originalWindow) {
 		Actions action = new Actions(driver);//Create an object to store a chain of keypresses
 		selectElement.click();//cause the select element to be highlighted
 		Select foundSelect = new Select(selectElement);//convert webelement to select element
@@ -116,8 +114,8 @@ public class OAP_2042 {
 		driver.switchTo().window(originalWindow);  //selecting an option causes focus to be lost from the current window - must switch focus back to browser window
 									//Requires having already saved the browser window handle somewhere after browser window is initialized - found using driver.CurrentWindowHandle 
 	}
-  
-//  public void SelectOption(int optionNum) {
+	
+//public void SelectOption(int optionNum) {
 //		Actions action = new Actions(driver);//Create an object to store a chain of keypresses
 //		WebElement foundElement = driver.findElement(By.id("ctlAppContent_ddlIntakeProcess"));//find webelement
 //		foundElement.click();//cause the select element to be highlighted
