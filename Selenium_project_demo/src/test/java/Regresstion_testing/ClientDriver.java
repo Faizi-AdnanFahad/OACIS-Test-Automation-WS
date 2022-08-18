@@ -28,6 +28,7 @@ public class ClientDriver {
 	}
 	
 	public void launchOACIS() {
+		 System.out.println("**********************************************************");
 		 System.out.println("Launching the Oacis website...");
 		 driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
 	}
@@ -41,15 +42,19 @@ public class ClientDriver {
 		 driver.findElement(By.id("ctlClientSearch_lnkSearch")).click();	   
 	}
 	
+	public void searchForClientThroughSideBar(String lastNameInput) {
+		 driver.findElement(By.id("ctlQueryBox_txtQuery")).sendKeys(lastNameInput); // User searches for client name
+		 driver.findElement(By.xpath("/html/body/form/table/tbody/tr/td[1]/div[1]/img")).click();	   
+	}
+	
 	/* Given last name, first name and date of birth, creates a client in OACIS */
 	public void createClient(String lastNameInput, String firstNameInput, String dobInput) {
 	        /*
 			 * Creates a client
 			 */
  	 	   System.out.println("Creating new client...");
-
+ 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click(); // User clicks on "New" on the side tab
-		    
 		    WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
 		    WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
 		    WebElement lastName = driver.findElement(By.id("ctlClientContent_txtLastName"));
@@ -75,16 +80,16 @@ public class ClientDriver {
 		    
 		    // User should be able to fill out the requested fields on client page.
 	    	System.out.println("Entering client's information in OACIS...");
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		    driver.findElement(By.id("ctlClientContent_txtLastName")).click();
 		    driver.findElement(By.id("ctlClientContent_txtLastName")).sendKeys(lastNameInput);
 		    driver.findElement(By.id("ctlClientContent_txtFirstName")).sendKeys(firstNameInput);
 		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).click();
 		    driver.findElement(By.id("ctlClientContent_ctlDob_txtDate")).sendKeys(dobInput);
 		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
-		    driver.findElement(By.id("ctlStandardOperations_lnkSave")).click();
 
 			 System.out.println("Client is successfully created!");
-			 
+			 System.out.println("**********************************************************");
 			 // TBD Duplicate Checking Once the main objective (Regression Testing is automated)
 //		     System.out.println("Performing a duplicate check...");
 //			 boolean duplicateExists = duplicateExists(firstNameInput, lastNameInput, dobInput);
@@ -94,6 +99,15 @@ public class ClientDriver {
 //				 // Client already exists
 //				 System.out.println("Client already exists in OACIS.");
 //			 }
+	}
+	
+	public void createNewApplication() {
+		System.out.println("Creating a new application...");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	    driver.findElement(By.id("ctlPageNav_lnkApplications")).click();
+	    driver.findElement(By.id("ctlStandardOperations_lnkNew")).click(); // User clicks "Applications" and then "New"
+	    System.out.println("New application is being created...");
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 	
 	/*==============================================TBD============================================================*/
