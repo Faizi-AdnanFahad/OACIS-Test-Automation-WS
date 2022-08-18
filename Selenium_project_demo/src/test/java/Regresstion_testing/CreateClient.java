@@ -27,21 +27,23 @@ public class CreateClient {
 				  // TBD: Implement a loop to enter all client information
 				  
 				  int rowNum = 1;
-				  lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, 2, 0);
-				  
+				  lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, rowNum, 0);
+				  ClientDriver client = new ClientDriver();
+
 				  while (lastNameInput !=  "") {
 					  lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, rowNum, 0);
 					  firstNameInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, rowNum, 1);
 					  dobInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, rowNum, 2); // The format should be DD-MM-YYYY
-					  ClientDriver client = new ClientDriver();
 					  client.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 					  client.launchOACIS();
 					  client.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-					  client.searchForClientByLastName(lastNameInput);
+					  client.searchForClientThroughSideBar(lastNameInput);
 					  client.createClient(lastNameInput, firstNameInput, dobInput);
-					  reader.close();
 					  rowNum ++;
+					  lastNameInput = ExcelDataByRowColIndex.GetDataFromExcel(excelFileName, rowNum, 0);
 				  	}
+			      System.out.println("===========>>>>>> ALL CLIENTS WERE SUCCESSFULLY CREATED!!!");
+				  reader.close();
 				  break;
 			  }
 			  else if (input.toUpperCase().equals("C")) {
