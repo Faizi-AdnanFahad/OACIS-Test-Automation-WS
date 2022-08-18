@@ -3,12 +3,18 @@ package Regresstion_testing;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+import net.bytebuddy.asm.Advice.Origin;
 
 public class ClientDriver {
 	  
@@ -110,6 +116,27 @@ public class ClientDriver {
 	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 	
+	public void fillUpContactTab(Map<String, String> contactInfo) {
+		driver.findElement(By.id("ctlAppContent_lbContactsTab")).click();
+	    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).click();
+	    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys(contactInfo.get("applicantFirstName"));
+	    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).click();
+	    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).sendKeys(contactInfo.get("applicantLastName"));
+	    driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).click();
+	    driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).sendKeys(contactInfo.get("unitNum"));
+	    driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).click();
+	    driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).sendKeys(contactInfo.get("streetNum"));
+	    driver.findElement(By.id("ctlAppContent_txtApplicantStreet")).click();
+	    driver.findElement(By.id("ctlAppContent_txtApplicantStreet")).sendKeys(contactInfo.get("streetName"));
+	    driver.findElement(By.id("ctlAppContent_txtApplicantCity")).click();
+	    driver.findElement(By.id("ctlAppContent_txtApplicantCity")).sendKeys(contactInfo.get("city"));
+	    driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).click();
+	    driver.findElement(By.id("ctlAppContent_txtApplicantPostalCode")).sendKeys(contactInfo.get("postalCode"));
+	    System.out.println("All contact information was entered!");
+	    System.out.println("**********************************************************");
+	}
+	
+	
 	/*==============================================TBD============================================================*/
 	/* returns true if a proposed client's first name, last name and DOB matches one in OACIS. */
 	  public boolean duplicateExists(String firstNameExcel, String lastNameExcel, String dobExcel) {
@@ -176,4 +203,5 @@ public class ClientDriver {
 		  return dayExcel.equals(dayOACIS) && monthExcel.equals(monthOACIS) && yearExcel.equals(yearOACIS);
 	  }
 		/*==========================================================================================================*/
+
 }
