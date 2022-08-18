@@ -34,25 +34,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 public class OAP_2041 {
-	 private WebDriver driver;
-	 //private Map<String, Object> vars;//Required if driver is created using DriverManager
-	 //JavascriptExecutor js;//Required if driver is created using DriverManager
-	  
-	  @Before
-	  public void setUp() {
-		  driver = DriverFactory.CreateIEDriverManually();
-		  // js = (JavascriptExecutor) driver; //Required if driver is created using DriverManager
-		  // vars = new HashMap<String, Object>(); //Required if driver is created using DriverManager
-	  }
-	  @After
-	  public void tearDown() {
-		  //    driver.quit();
-	  }
 	  @Test
 	  public void oAP2041() {
-		String lastName = "CLNameTen11";
-		String firstName = "CFNameTen11";
-		String dob = "01-Dec-2006";
+		String lastName = "testNameFirst";
+		String firstName = "testNameLast";
+		String dob = "01-May-09";
 		  
 		ClientDriver cd = new ClientDriver(); 
 		cd.launchOACIS(); // User navigates to OACIS
@@ -63,17 +49,17 @@ public class OAP_2041 {
 		cd.createClient(lastName, firstName, dob);
 		
 	    // User should be able to view the saved client information with the updated time at the bottom
-	    WebElement updatedLabel = driver.findElement(By.id("ctlClientContent_lblUpdated"));
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
+	    WebElement updatedLabel = cd.getDriver().findElement(By.id("ctlClientContent_lblUpdated"));
+		cd.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));	  
 	    assertTrue(updatedLabel.isDisplayed());
 		
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
-		WebElement transitionCode = driver.findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
-		WebElement lockStatus = driver.findElement(By.cssSelector("#ctlClientContent_ddl_LockStatus option"));
-		WebElement regDate = driver.findElement(By.id("ctlClientContent_txtRegistrationDate"));
-		WebElement iioInvitationSentDate = driver.findElement(By.id("ctlClientContent_txtIIO_InvitationSentDate"));
-		WebElement consentProviderName = driver.findElement(By.id("ctlClientContent_txtConsentProviderName"));
-		WebElement cftDeclinedDate = driver.findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
+		cd.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));	  
+		WebElement transitionCode = cd.getDriver().findElement(By.id("ctlClientContent_txtIIO_TransitionCode"));
+		WebElement lockStatus = cd.getDriver().findElement(By.cssSelector("#ctlClientContent_ddl_LockStatus option"));
+		WebElement regDate = cd.getDriver().findElement(By.id("ctlClientContent_txtRegistrationDate"));
+		WebElement iioInvitationSentDate = cd.getDriver().findElement(By.id("ctlClientContent_txtIIO_InvitationSentDate"));
+		WebElement consentProviderName = cd.getDriver().findElement(By.id("ctlClientContent_txtConsentProviderName"));
+		WebElement cftDeclinedDate = cd.getDriver().findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
 		
 		System.out.println("Checking that all fields are empty...");
 		assertTrue(transitionCode.getAttribute("value").length() == 5); // User should be able to see a five-character alpha-numerical IIO Transition Code assigned for the client.
