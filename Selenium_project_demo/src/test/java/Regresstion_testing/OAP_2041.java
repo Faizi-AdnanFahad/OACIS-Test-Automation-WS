@@ -36,19 +36,25 @@ import java.time.Duration;
 public class OAP_2041 {
 	  @Test
 	  public void oAP2041() {
-		String lastName = "testNameFirst";
-		String firstName = "testNameLast";
+		String lastName = "oap2041TestL";
+		String firstName = "oap2041TestF";
 		String dob = "01-May-09";
 		  
-		ClientDriver cd = new ClientDriver(); 
-		cd.launchOACIS(); // User navigates to OACIS
-		  
-		// Search for the client and confirm all the information
+		ClientDriver cd = new ClientDriver();
+		
+		// 1. User navigates to OACIS --> User should be able to access OACIS page
+		cd.launchOACIS();
+		 
+		// 2. User clicks on the "Client" tab --> User should be able to view client page
+		// 3. User clicks on "New" on the side tab  --> User should be able to see a blank client page form to fill out
+		
+		// Search for the client and confirm all the information - Useful mainly for duplicate checking TBD
 		cd.searchForClientByLastName(lastName);
-		// Creates a client if a it is unique in OACIS.
+		
+		// 4. User clicks on "New" on the side tab --> User should be able to fill out the requested fields on client page.
 		cd.createClient(lastName, firstName, dob);
 		
-	    // User should be able to view the saved client information with the updated time at the bottom
+		// 5. User clicks on "Save" on the side tab --> User should be able to view the saved client information with the updated time at the bottom
 	    WebElement updatedLabel = cd.getDriver().findElement(By.id("ctlClientContent_lblUpdated"));
 		cd.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));	  
 	    assertTrue(updatedLabel.isDisplayed());
@@ -62,12 +68,24 @@ public class OAP_2041 {
 		WebElement cftDeclinedDate = cd.getDriver().findElement(By.id("ctlClientContent_DateFieldNoTransferConfirmedDate_txtDate"));
 		
 		System.out.println("Checking that all fields are empty...");
-		assertTrue(transitionCode.getAttribute("value").length() == 5); // User should be able to see a five-character alpha-numerical IIO Transition Code assigned for the client.
-		assertTrue(lockStatus.getText().equals("Unlocked")); // User should be able to see client lock status is set to "Unlocked" by default.
-		assertTrue(regDate.getAttribute("value") == ""); // Registration date field should be empty
-		assertTrue(iioInvitationSentDate.getAttribute("value") == ""); // IIO Invitation Sent Date field should be empty
-		assertTrue(consentProviderName.getAttribute("value") == ""); // IIO Invitation Sent Date field should be empty
-		assertTrue(cftDeclinedDate.getAttribute("value") == ""); // Consent for Transition: Declined Date field should be empty
+		
+		// 6. User checks IIO Transition Code field on the client page --> User should be able to see a five-character alphanumerical IIO Transition Code assigned for the client.
+		assertTrue(transitionCode.getAttribute("value").length() == 5);
+		
+		// 7. User checks Client Lock Status field on the client page --> User should be able to see client lock status is set to "Unlocked" by default.
+		assertTrue(lockStatus.getText().equals("Unlocked"));
+		
+		// 8. User checks Registration Date field on the client page --> Registration date field should be empty
+		assertTrue(regDate.getAttribute("value") == "");
+		
+		// 9. User checks IIO Invitation Sent Date field on the client page --> IIO Invitation Sent Date field should be empty
+		assertTrue(iioInvitationSentDate.getAttribute("value") == "");
+		
+		// 10. User checks Consent Provider Name field on the client page --> IIO Invitation Sent Date field should be empty
+		assertTrue(consentProviderName.getAttribute("value") == "");
+		
+		// 11. User checks Consent for Transition: Declined Date field on the client page --> Consent for Transition: Declined Date field should be empty
+		assertTrue(cftDeclinedDate.getAttribute("value") == "");
 		System.out.println("All fields are empty. Verified!");
 		System.out.println("OAP 2041 is PASSED!");
 	  }
