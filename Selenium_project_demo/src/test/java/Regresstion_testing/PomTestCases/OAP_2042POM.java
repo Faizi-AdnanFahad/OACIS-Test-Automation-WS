@@ -13,11 +13,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import Regresstion_testing.ClientDriver;
-import Regresstion_testing.PageObjectModels.ApplicationContactTab;
-import Regresstion_testing.PageObjectModels.ApplicationFollowUpTab;
-import Regresstion_testing.PageObjectModels.ApplicationIntakeTab;
-import Regresstion_testing.PageObjectModels.ApplicationPriorServiceTab;
 import Regresstion_testing.PageObjectModels.ClientPageModel;
+import Regresstion_testing.PageObjectModels.ApplicationPageTabs.ContactTab;
+import Regresstion_testing.PageObjectModels.ApplicationPageTabs.FollowUpTab;
+import Regresstion_testing.PageObjectModels.ApplicationPageTabs.IntakeTab;
+import Regresstion_testing.PageObjectModels.ApplicationPageTabs.PriorityServiceTab;
 
 public class OAP_2042POM {
 	  private WebDriver driver;
@@ -50,8 +50,8 @@ public class OAP_2042POM {
 		String postalCode = "M3K 3H5";
 		
 		// Intakes Tab
-		String intakeProccess = "Standard";
-		String applicantType = "New";
+		String intakeProccess = "Interim";
+		String applicantType = "Legacy Priority Service";
 		
 		// Set 'authorization to true, if and only if the authorization is required and assign values to the authorization related field accordingly.'
 		boolean authorization = true;
@@ -89,7 +89,7 @@ public class OAP_2042POM {
 		driver.findElement(By.id("ctlAppContent_lbContactsTab")).click();
 		
 	    // 5. User inputs all required fields in "Contacts" tab and clicks "Save" --> User should be able to successfully save after completing fields in "Contacts" tab
-		ApplicationContactTab contactTab = new ApplicationContactTab(driver);
+		ContactTab contactTab = new ContactTab(driver);
 		contactTab.FillApplicantLastNameTxtFld(applicantLastName);
 		contactTab.FillApplicantFirstNameTxtFld(applicantFirstName);
 		contactTab.FillApplicantDob_txtDateTxtFld(applicantDOB);
@@ -103,8 +103,8 @@ public class OAP_2042POM {
 	    // Click on intakes Tab
 	    driver.findElement(By.id("ctlAppContent_lbIntakeTab")).click();
 	    
-	    // 6. User inputs all required fields in "Intake" tab and clicks "Save"
-	    ApplicationIntakeTab intakeTab = new ApplicationIntakeTab(driver);
+	    // 6. User inputs all required fields in "Intake" tab and clicks "Save" --> User should be able to confirm that "Intake" tab matches 
+	    IntakeTab intakeTab = new IntakeTab(driver);
 	    intakeTab.SelectOptionIntakeProcessSelect(driver, this.originalWindow, intakeProccess);
 	    intakeTab.SelectOptionAppTypeSelect(driver, this.originalWindow, applicantType);
 
@@ -124,7 +124,7 @@ public class OAP_2042POM {
 		driver.findElement(By.id("ctlAppContent_lbFollowUpTab")).click();
 	    
 	    // 7. User inputs all required fields in "Follow up" tab and clicks "Save" --> User should be able to successfully save after completing fields in "Follow up" tab
-		ApplicationFollowUpTab priorService = new ApplicationFollowUpTab(driver);
+		FollowUpTab priorService = new FollowUpTab(driver);
 	    priorService.FillClinicalSupervisorTxtFld(clinicalSupervisor);
 	    intakeTab.GetSaveLnk().click();
 	    
