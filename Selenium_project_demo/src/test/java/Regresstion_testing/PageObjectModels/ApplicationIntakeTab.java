@@ -1,5 +1,6 @@
 package Regresstion_testing.PageObjectModels;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -361,7 +362,7 @@ public class ApplicationIntakeTab {
 
 	public WebElement GetAgeProofSelect()
 	{
-		if(this.AgeProofSelect==null)
+		if(this.AgeProofSelect==null) 
 			SetAgeProofSelect(Driver.findElement(By.xpath("//*[@id=\"ctlAppContent_ddlAgeProof\"]")));
 		return this.AgeProofSelect;
 	}
