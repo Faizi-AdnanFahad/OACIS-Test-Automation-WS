@@ -1,4 +1,4 @@
-package Regresstion_testing.PageObjectModels;
+package Regresstion_testing.PageObjectModels.ApplicationPageTabs;
 
 import java.time.Duration;
 import java.util.List;
@@ -11,8 +11,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import Regresstion_testing.DriverFactory;
+import Regresstion_testing.PageObjectModels.LandingPageModel;
 
-public class ApplicationIntakeTab {
+public class IntakeTab {
 	private WebDriver Driver;
 	private WebElement QueryTxtFld;
 	private WebElement ApplicationReceivedDate_txtDateTxtFld;
@@ -409,84 +410,84 @@ public class ApplicationIntakeTab {
 	}
 
 
-	public ApplicationIntakeTab(WebDriver driver)
+	public IntakeTab(WebDriver driver)
 	{
 		DriverFactory.WaitForPageLoad(driver);
 		this.Driver = driver;
 		this.LandingPage = new LandingPageModel(driver);
 	}
 
-	public ApplicationIntakeTab FillQueryTxtFld(String text)
+	public IntakeTab FillQueryTxtFld(String text)
 	{
 		GetQueryTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationIntakeTab FillApplicationReceivedDate_txtDateTxtFld(String text)
+	public IntakeTab FillApplicationReceivedDate_txtDateTxtFld(String text)
 	{
 		GetApplicationReceivedDate_txtDateTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationIntakeTab FillAppHourReceivedTxtFld(String text)
+	public IntakeTab FillAppHourReceivedTxtFld(String text)
 	{
 		GetAppHourReceivedTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationIntakeTab FillAppMinuteReceivedTxtFld(String text)
+	public IntakeTab FillAppMinuteReceivedTxtFld(String text)
 	{
 		GetAppMinuteReceivedTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationIntakeTab FillInformationLetterDate_txtDateTxtFld(String text)
+	public IntakeTab FillInformationLetterDate_txtDateTxtFld(String text)
 	{
 		GetInformationLetterDate_txtDateTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationIntakeTab FillLetterSentDate_txtDateTxtFld(String text)
+	public IntakeTab FillLetterSentDate_txtDateTxtFld(String text)
 	{
 		GetLetterSentDate_txtDateTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationIntakeTab FillUnreconciledAmountTxtFld(String text)
+	public IntakeTab FillUnreconciledAmountTxtFld(String text)
 	{
 		GetUnreconciledAmountTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationIntakeTab FillConsentDate_txtDateTxtFld(String text)
+	public IntakeTab FillConsentDate_txtDateTxtFld(String text)
 	{
 		GetConsentDate_txtDateTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationIntakeTab FillSchoolBoardTxtFld(String text)
+	public IntakeTab FillSchoolBoardTxtFld(String text)
 	{
 		GetSchoolBoardTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationIntakeTab FillSchoolNameTxtFld(String text)
+	public IntakeTab FillSchoolNameTxtFld(String text)
 	{
 		GetSchoolNameTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationIntakeTab FillApplicationCompletedDate_txtDateTxtFld(String text)
+	public IntakeTab FillApplicationCompletedDate_txtDateTxtFld(String text)
 	{
 		GetApplicationCompletedDate_txtDateTxtFld().sendKeys(text);
 		return this;
@@ -552,7 +553,7 @@ public class ApplicationIntakeTab {
 //		GetNarrativesLnk().click();
 //		return new Place_Holder(Driver);
 //	}
-	public ApplicationIntakeTab SelectOptionAMPMSelect(int optionNum)
+	public IntakeTab SelectOptionAMPMSelect(int optionNum)
 	{
 		Actions action = new Actions(Driver);
 		Select elementAsSelect = new Select(AMPMSelect);
@@ -568,39 +569,39 @@ public class ApplicationIntakeTab {
 		return this;
 	}
 	
-	public ApplicationIntakeTab SelectOptionIntakeProcessSelect(WebDriver driver, String originalWindow, String optionText) {
+	public IntakeTab SelectOptionIntakeProcessSelect(WebDriver driver, String originalWindow, String optionText) {
 		WebElement selectElement = this.GetIntakeProcessSelect();
 		return this.SelectOptionGeneral(selectElement, driver, originalWindow, optionText);
 	}
 	
 	
-	public ApplicationIntakeTab SelectOptionAppTypeSelect(WebDriver driver, String originalWindow, String optionText) {
+	public IntakeTab SelectOptionAppTypeSelect(WebDriver driver, String originalWindow, String optionText) {
 		return this.SelectOptionGeneral(this.GetAppTypeSelect(), driver, originalWindow, optionText);
 	}
 	
-	public ApplicationIntakeTab SelectOptionAgeProofSelect(WebDriver driver, String originalWindow, String optionText) 	{
+	public IntakeTab SelectOptionAgeProofSelect(WebDriver driver, String originalWindow, String optionText) 	{
 		WebElement selectElement = this.GetAgeProofSelect();
 		return this.SelectOptionGeneral(selectElement, driver, originalWindow, optionText);
 
 	}
 	
-	public ApplicationIntakeTab SelectOptionResidencyProofSelect(WebDriver driver, String originalWindow, String optionText) 	{
+	public IntakeTab SelectOptionResidencyProofSelect(WebDriver driver, String originalWindow, String optionText) 	{
 		WebElement selectElement = this.GetResidencyProofSelect();
 		return this.SelectOptionGeneral(selectElement, driver, originalWindow, optionText);
 	}
 	
-	public ApplicationIntakeTab SelectOptionConsentSelect(WebDriver driver, String originalWindow, String optionText) 	{
+	public IntakeTab SelectOptionConsentSelect(WebDriver driver, String originalWindow, String optionText) 	{
 		WebElement selectElement = this.GetConsentSelect();
 		return this.SelectOptionGeneral(selectElement, driver, originalWindow, optionText);
 	}
 	
-	public ApplicationIntakeTab SelectOptionAttendingSchoolSelect(WebDriver driver, String originalWindow, String optionText) 	{
+	public IntakeTab SelectOptionAttendingSchoolSelect(WebDriver driver, String originalWindow, String optionText) 	{
 		WebElement selectElement = this.GetAttendingSchoolSelect();
 		return this.SelectOptionGeneral(selectElement, driver, originalWindow, optionText);
 	}
 	
 	// Helper Method
-	private ApplicationIntakeTab SelectOptionGeneral(WebElement selectElement, WebDriver driver, String originalWindow, String optionText) {
+	private IntakeTab SelectOptionGeneral(WebElement selectElement, WebDriver driver, String originalWindow, String optionText) {
 		
 		Actions action = new Actions(driver);//Create an object to store a chain of keypresses
 		selectElement.click();//cause the select element to be highlighted

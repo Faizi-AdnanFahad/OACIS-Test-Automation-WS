@@ -1,4 +1,4 @@
-package Regresstion_testing.PageObjectModels;
+package Regresstion_testing.PageObjectModels.ApplicationPageTabs;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import Regresstion_testing.DriverFactory;
 
-public class ApplicationContactTab {
+public class ContactTab {
 	private WebDriver Driver;
 	private WebElement QueryTxtFld;
 	private WebElement ApplicantLastNameTxtFld;
@@ -419,203 +419,203 @@ public class ApplicationContactTab {
 	}
 
 
-	public ApplicationContactTab(WebDriver driver)
+	public ContactTab(WebDriver driver)
 	{
 		DriverFactory.WaitForPageLoad(driver);
 		this.Driver = driver;
 	}
 
-	public ApplicationContactTab FillQueryTxtFld(String text)
+	public ContactTab FillQueryTxtFld(String text)
 	{
 		GetQueryTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantLastNameTxtFld(String text)
+	public ContactTab FillApplicantLastNameTxtFld(String text)
 	{
 		GetApplicantLastNameTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantFirstNameTxtFld(String text)
+	public ContactTab FillApplicantFirstNameTxtFld(String text)
 	{
 		GetApplicantFirstNameTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantDob_txtDateTxtFld(String text)
+	public ContactTab FillApplicantDob_txtDateTxtFld(String text)
 	{
 		GetApplicantDob_txtDateTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillReferenceNumberTxtFld(String text)
+	public ContactTab FillReferenceNumberTxtFld(String text)
 	{
 		GetReferenceNumberTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantUnitTxtFld(String text)
+	public ContactTab FillApplicantUnitTxtFld(String text)
 	{
 		GetApplicantUnitTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantStreetNumberTxtFld(String text)
+	public ContactTab FillApplicantStreetNumberTxtFld(String text)
 	{
 		GetApplicantStreetNumberTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantStreetTxtFld(String text)
+	public ContactTab FillApplicantStreetTxtFld(String text)
 	{
 		GetApplicantStreetTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantPOBoxTxtFld(String text)
+	public ContactTab FillApplicantPOBoxTxtFld(String text)
 	{
 		GetApplicantPOBoxTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantCityTxtFld(String text)
+	public ContactTab FillApplicantCityTxtFld(String text)
 	{
 		GetApplicantCityTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantPostalCodeTxtFld(String text)
+	public ContactTab FillApplicantPostalCodeTxtFld(String text)
 	{
 		GetApplicantPostalCodeTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantEmailTxtFld(String text)
+	public ContactTab FillApplicantEmailTxtFld(String text)
 	{
 		GetApplicantEmailTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillPhoneHomeTxtFld(String text)
+	public ContactTab FillPhoneHomeTxtFld(String text)
 	{
 		GetPhoneHomeTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantExt1TxtFld(String text)
+	public ContactTab FillApplicantExt1TxtFld(String text)
 	{
 		GetApplicantExt1TxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillPhoneCellTxtFld(String text)
+	public ContactTab FillPhoneCellTxtFld(String text)
 	{
 		GetPhoneCellTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantExt2TxtFld(String text)
+	public ContactTab FillApplicantExt2TxtFld(String text)
 	{
 		GetApplicantExt2TxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationContactTab FillApplicantOtherLanguageTxtFld(String text)
+	public ContactTab FillApplicantOtherLanguageTxtFld(String text)
 	{
 		GetApplicantOtherLanguageTxtFld().sendKeys(text);
 		return this;
 	}
 
-	public ApplicationContactTab ClickMainLnk()
+	public ContactTab ClickMainLnk()
 	{
 		GetMainLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickQueueLnk()
+	public ContactTab ClickQueueLnk()
 	{
 		GetQueueLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickClientLnk()
+	public ContactTab ClickClientLnk()
 	{
 		GetClientLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickReportsLnk()
+	public ContactTab ClickReportsLnk()
 	{
 		GetReportsLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickNewLnk()
+	public ContactTab ClickNewLnk()
 	{
 		GetNewLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickSaveLnk()
+	public ContactTab ClickSaveLnk()
 	{
 		GetSaveLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickDeleteLnk()
+	public ContactTab ClickDeleteLnk()
 	{
 		GetDeleteLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickAppListLnk()
+	public ContactTab ClickAppListLnk()
 	{
 		GetAppListLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickMergeLnk()
+	public ContactTab ClickMergeLnk()
 	{
 		GetMergeLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickExpensesLnk()
+	public ContactTab ClickExpensesLnk()
 	{
 		GetExpensesLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickAuthorizationLnk()
+	public ContactTab ClickAuthorizationLnk()
 	{
 		GetAuthorizationLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab ClickNarrativesLnk()
+	public ContactTab ClickNarrativesLnk()
 	{
 		GetNarrativesLnk().click();
-		return new ApplicationContactTab(Driver);
+		return new ContactTab(Driver);
 	}
-	public ApplicationContactTab SelectOptionApplicantProvinceSelect(WebDriver driver, String originalWindow, String optionText)
+	public ContactTab SelectOptionApplicantProvinceSelect(WebDriver driver, String originalWindow, String optionText)
 	{
 		WebElement selectElement = this.GetApplicantProvinceSelect();
 		return this.SelectOptionGeneral(selectElement, driver, originalWindow, optionText);
 	}
-	public ApplicationContactTab SelectOptionApplicantLanguageSelect(WebDriver driver, String originalWindow, String optionText)
+	public ContactTab SelectOptionApplicantLanguageSelect(WebDriver driver, String originalWindow, String optionText)
 	{
 		WebElement selectElement = this.GetApplicantLanguageSelect();
 		return this.SelectOptionGeneral(selectElement, driver, originalWindow, optionText);
 	}
 	
 	// Helper Method
-	private ApplicationContactTab SelectOptionGeneral(WebElement selectElement, WebDriver driver, String originalWindow, String optionText) {
+	private ContactTab SelectOptionGeneral(WebElement selectElement, WebDriver driver, String originalWindow, String optionText) {
 		
 		Actions action = new Actions(driver);//Create an object to store a chain of keypresses
 		selectElement.click();//cause the select element to be highlighted

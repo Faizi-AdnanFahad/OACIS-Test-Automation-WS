@@ -1,4 +1,4 @@
-package Regresstion_testing.PageObjectModels;
+package Regresstion_testing.PageObjectModels.ApplicationPageTabs;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import Regresstion_testing.DriverFactory;
 
-public class ApplicationPriorServiceTab {
+public class PriorityServiceTab {
 	private WebDriver Driver;
 	private WebElement QueryTxtFld;
 	private WebElement ProviderClientInfoNumTxtFld;
@@ -263,119 +263,119 @@ public class ApplicationPriorServiceTab {
 	}
 
 
-	public ApplicationPriorServiceTab(WebDriver driver)
+	public PriorityServiceTab(WebDriver driver)
 	{
 		DriverFactory.WaitForPageLoad(driver);
 		this.Driver = driver;
 	}
 
-	public ApplicationPriorServiceTab FillQueryTxtFld(String text)
+	public PriorityServiceTab FillQueryTxtFld(String text)
 	{
 		GetQueryTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationPriorServiceTab FillProviderClientInfoNumTxtFld(String text)
+	public PriorityServiceTab FillProviderClientInfoNumTxtFld(String text)
 	{
 		GetProviderClientInfoNumTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationPriorServiceTab FillProviderClientDOB_txtDateTxtFld(String text)
+	public PriorityServiceTab FillProviderClientDOB_txtDateTxtFld(String text)
 	{
 		GetProviderClientDOB_txtDateTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationPriorServiceTab FillProviderRegistrationDate_txtDateTxtFld(String text)
+	public PriorityServiceTab FillProviderRegistrationDate_txtDateTxtFld(String text)
 	{
 		GetProviderRegistrationDate_txtDateTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ApplicationPriorServiceTab FillActiveEBBSEndDate_txtDateTxtFld(String text)
+	public PriorityServiceTab FillActiveEBBSEndDate_txtDateTxtFld(String text)
 	{
 		GetActiveEBBSEndDate_txtDateTxtFld().sendKeys(text);
 		return this;
 	}
 
-	public ApplicationPriorServiceTab ClickMainLnk()
+	public PriorityServiceTab ClickMainLnk()
 	{
 		GetMainLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickQueueLnk()
+	public PriorityServiceTab ClickQueueLnk()
 	{
 		GetQueueLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickClientLnk()
+	public PriorityServiceTab ClickClientLnk()
 	{
 		GetClientLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickReportsLnk()
+	public PriorityServiceTab ClickReportsLnk()
 	{
 		GetReportsLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickNewLnk()
+	public PriorityServiceTab ClickNewLnk()
 	{
 		GetNewLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickSaveLnk()
+	public PriorityServiceTab ClickSaveLnk()
 	{
 		GetSaveLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickDeleteLnk()
+	public PriorityServiceTab ClickDeleteLnk()
 	{
 		GetDeleteLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickAppListLnk()
+	public PriorityServiceTab ClickAppListLnk()
 	{
 		GetAppListLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickMergeLnk()
+	public PriorityServiceTab ClickMergeLnk()
 	{
 		GetMergeLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickExpensesLnk()
+	public PriorityServiceTab ClickExpensesLnk()
 	{
 		GetExpensesLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickAuthorizationLnk()
+	public PriorityServiceTab ClickAuthorizationLnk()
 	{
 		GetAuthorizationLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab ClickNarrativesLnk()
+	public PriorityServiceTab ClickNarrativesLnk()
 	{
 		GetNarrativesLnk().click();
-		return new ApplicationPriorServiceTab(Driver);
+		return new PriorityServiceTab(Driver);
 	}
-	public ApplicationPriorServiceTab SelectOptionProviderNameSelect(WebDriver driver, String originalWindow, String optionText)
+	public PriorityServiceTab SelectOptionProviderNameSelect(WebDriver driver, String originalWindow, String optionText)
 	{
 		WebElement selectElement = this.GetProviderNameSelect();
 		return this.SelectOptionGeneral(selectElement, driver, originalWindow, optionText);
 	}
-	public ApplicationPriorServiceTab SelectOptionMigrationOAPStatusSelect(WebDriver driver, String originalWindow, String optionText)
+	public PriorityServiceTab SelectOptionMigrationOAPStatusSelect(WebDriver driver, String originalWindow, String optionText)
 	{
 		WebElement selectElement = this.GetMigrationOAPStatusSelect();
 		return this.SelectOptionGeneral(selectElement, driver, originalWindow, optionText);
 	}
 	
 	// Helper Method
-	private ApplicationPriorServiceTab SelectOptionGeneral(WebElement selectElement, WebDriver driver, String originalWindow, String optionText) {
+	private PriorityServiceTab SelectOptionGeneral(WebElement selectElement, WebDriver driver, String originalWindow, String optionText) {
 		
 		Actions action = new Actions(driver);//Create an object to store a chain of keypresses
 		selectElement.click();//cause the select element to be highlighted
