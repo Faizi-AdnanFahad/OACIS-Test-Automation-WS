@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 
 import Regresstion_testing.ClientDriver;
 import Regresstion_testing.PageObjectModels.ApplicationContactTab;
+import Regresstion_testing.PageObjectModels.ApplicationFollowUpTab;
 import Regresstion_testing.PageObjectModels.ApplicationIntakeTab;
 import Regresstion_testing.PageObjectModels.ApplicationPriorServiceTab;
 import Regresstion_testing.PageObjectModels.ClientPageModel;
@@ -60,6 +61,9 @@ public class OAP_2042POM {
 		String consentProvidedBy = "Both";
 		String dateOfConsent = "06-Nov-2019";
 		String appCompletedDate = "25-Feb-2020";
+		
+		// Follow-up tab
+		String clinicalSupervisor = "testSuperVisorName";
 		
 		
 		// 1. User navigates to OACIS --> User should be able to access OACIS page
@@ -116,12 +120,12 @@ public class OAP_2042POM {
 		    driver.findElement(By.id("ctlAppContent_chkConsent")).click(); // Consent Checkbox clicked;
 	    }
 	    
-	    // Click on Prior Service Tab
-		driver.findElement(By.id("ctlAppContent_lbPriorServiceTab")).click();
+	    // Clicks on Follow-up Tab
+		driver.findElement(By.id("ctlAppContent_lbFollowUpTab")).click();
 	    
 	    // 7. User inputs all required fields in "Follow up" tab and clicks "Save" --> User should be able to successfully save after completing fields in "Follow up" tab
-		ApplicationPriorServiceTab priorService = new ApplicationPriorServiceTab(driver);
-	    priorService.FillProviderClientDOB_txtDateTxtFld(clientDOB);
+		ApplicationFollowUpTab priorService = new ApplicationFollowUpTab(driver);
+	    priorService.FillClinicalSupervisorTxtFld(clinicalSupervisor);
 	    intakeTab.GetSaveLnk().click();
 	    
 	    System.out.println("**************************");
