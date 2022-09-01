@@ -116,6 +116,7 @@ public class OAP_2042POM {
 		    intakeTab.FillApplicationReceivedDate_txtDateTxtFld(appRecievedDate);
 		    intakeTab.FillConsentDate_txtDateTxtFld(dateOfConsent);
 		    intakeTab.FillApplicationCompletedDate_txtDateTxtFld(appCompletedDate);
+		    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 		    driver.findElement(By.id("ctlAppContent_chkDiagnosisProof")).click(); // Proof of Diagnosis Checkbox clicked;
 		    driver.findElement(By.id("ctlAppContent_chkConsent")).click(); // Consent Checkbox clicked;
 	    }
