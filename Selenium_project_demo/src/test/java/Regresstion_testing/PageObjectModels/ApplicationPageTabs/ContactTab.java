@@ -40,6 +40,7 @@ public class ContactTab {
 	private WebElement AppListLnk;
 	private WebElement MergeLnk;
 	private WebElement ExpensesLnk;
+	private WebElement RenewLnk;
 	private WebElement AuthorizationLnk;
 	private WebElement NarrativesLnk;
 	private WebElement ApplicantProvinceSelect;
@@ -363,6 +364,18 @@ public class ContactTab {
 		if(this.ExpensesLnk==null)
 			SetExpensesLnk(Driver.findElement(By.xpath("//*[@id=\"ctlAppPageNav_lnkExpenses\"]")));
 		return this.ExpensesLnk;
+	}
+	
+	public WebElement GetRenewLnk()
+	{
+		if(this.ExpensesLnk==null)
+			SetRenewLnk(Driver.findElement(By.xpath("//*[@id=\"ctlAppPageNav_lnkRenew\"]")));
+		return this.RenewLnk;
+	}
+	
+	public void SetRenewLnk(WebElement renewLink)
+	{
+		this.RenewLnk=renewLink;
 	}
 
 	public void SetExpensesLnk(WebElement expensesLnk)
