@@ -44,7 +44,7 @@ public class OAP_2047POM {
 		System.out.println("User is able to access OACIS page  \u2713");
 		System.out.println("-----------------------------------");
 
-		// Searches and clicks the first clients matching the lastname searched.
+		// Searches and clicks the first clients matching the last name searched.
 		ClientPageModel clientPage = new ClientPageModel(driver);
 		clientPage.ClickClientLnk();
 		clientPage.FillNameTxtFld(clientLastName);
@@ -95,7 +95,7 @@ public class OAP_2047POM {
 		System.out.println("User is able to view a blank service line page  \u2713");
 		System.out.println("-----------------------------------");
 		
-		// 6. User selects "OAP Services" from Business Unit dropdown list and input amount for the new service line and save --> User should be able to view a new service line created and saved
+		// 6. User selects "OAP Services" from Business Unit drop-down list and input amount for the new service line and save --> User should be able to view a new service line created and saved
 		ServiceLinesPage serviceLinesPage = new ServiceLinesPage(driver);
 		serviceLinesPage.GetNewLnk().click();
 		serviceLinesPage.SelectOptionBusinessUnitSelect(driver, this.originalWindow, bussinessUnit);
@@ -110,16 +110,23 @@ public class OAP_2047POM {
 		// 7. User returns to the budget tab of the application --> User should be able to see newly created authorization in the authorization list and "Authorized Total" amount been updated
  		serviceLinesPage.GetApplicationLnk().click();
  		driver.findElement(By.id("ctlAppContent_lbBudgetTab")).click();
- 		Double annualBudgAmnt = Double.parseDouble(driver.findElement(By.xpath("//*[@id=\"ctlAppContent_txtCurrentBudget\"]")).getText());
+ 		Double annualBudgAmnt = Double.parseDouble(driver.findElement(By.xpath("//*[@id=\"ctlAppContent_txtCurrentBudget\"]")).getAttribute("value"));
  		Double authorizedTotalAfter = Double.parseDouble(driver.findElement(By.xpath("//*[@id=\"ctlAppContent_lblAuthorizedTotal\"]")).getText());
  		Double balance = Double.parseDouble(driver.findElement(By.xpath("//*[@id=\"ctlAppContent_lblBalance\"]")).getText());
+ 		Double serviceAmntInt = Double.parseDouble(serviceLinesAmount);
  		assertEquals(balance, annualBudgAmnt - authorizedTotalAfter, 0.01);
- 		assertEquals(authorizedTotalAfter, authorizedTotalBefore + serviceLinesAmount);
+ 		assertEquals(authorizedTotalAfter, authorizedTotalBefore + serviceAmntInt, 0.01);
+ 		String authMSGBudgetTab = driver.findElement(By.xpath("//*[@id=\"ctlAppContent_ctlAuthList_lblListStatus\"]")).getText();
+ 		int numOfAuthBudgTab = authMSGBudgetTab.charAt(0) - '0';
+ 		assertTrue(numOfAuthBudgTab > 0);
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to see newly created authorization in the authorization list and \"Authorized Total\" amount been updated  \u2713");
+		System.out.println("-----------------------------------");
  		/***********************************************************************************************/
 
-//	    System.out.println("**************************");
-//	    System.out.println("Regression Test Case PASSED! - Create new application - Standard New ");
-//	    System.out.println("**************************");
+	    System.out.println("**************************");
+	    System.out.println("Regression Test Case PASSED! - Create new application - Standard New ");
+	    System.out.println("**************************");
 	}
 	//*[@id="ctlAppContent_ctlAuthList_lblListStatus"]
 	public void fillContactTabIfNeccessary(ContactTab contactTab, String applicantDOB, String unitNum, String streetNum, String streetName, String city, String postalCode, String refNum, String province) {
@@ -172,28 +179,4 @@ public class OAP_2047POM {
 			}
 		}
 	}
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
