@@ -2,13 +2,19 @@ package Regresstion_testing;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -24,6 +30,7 @@ public class ClientDriver {
 	  
 	public ClientDriver() {
 		driver = DriverFactory.CreateIEDriverManually();
+		driver.manage().window().setSize(new Dimension(2048, 1536));
 	    // js = (JavascriptExecutor) driver; //Required if driver is created using DriverManager
 	    // vars = new HashMap<String, Object>(); //Required if driver is created using DriverManager
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -119,9 +126,9 @@ public class ClientDriver {
 	public void fillUpContactTab(Map<String, String> contactInfo) {
 		driver.findElement(By.id("ctlAppContent_lbContactsTab")).click();
 	    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).click();
-	    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys(contactInfo.get("applicantFirstName"));
+	    driver.findElement(By.id("ctlAppContent_txtApplicantLastName")).sendKeys(contactInfo.get("applicantLastName"));
 	    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).click();
-	    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).sendKeys(contactInfo.get("applicantLastName"));
+	    driver.findElement(By.id("ctlAppContent_txtApplicantFirstName")).sendKeys(contactInfo.get("applicantFirstName"));
 	    driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).click();
 	    driver.findElement(By.id("ctlAppContent_txtApplicantUnit")).sendKeys(contactInfo.get("unitNum"));
 	    driver.findElement(By.id("ctlAppContent_txtApplicantStreetNumber")).click();
@@ -135,6 +142,21 @@ public class ClientDriver {
 	    System.out.println("All contact information was entered!");
 	    System.out.println("**********************************************************");
 	}
+	
+	  public void takeSnapShot(WebDriver webdriver,String fileWithPath) {
+		  //Convert web driver object to TakeScreenshot
+		  TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
+		  //Call getScreenshotAs method to create image file
+		  File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+		  //Move image file to new destination
+		  File DestFile = new File(fileWithPath);
+		  //Copy file at destination
+		  try {
+			FileUtils.copyFile(SrcFile, DestFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	  }
 	
 	
 	/*==============================================TBD============================================================*/
