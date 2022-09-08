@@ -30,7 +30,7 @@ public class ClientDriver {
 	  
 	public ClientDriver() {
 		driver = DriverFactory.CreateIEDriverManually();
-		driver.manage().window().setSize(new Dimension(2048, 1536));
+		driver.manage().window().setSize(new Dimension(1920, 1080));
 	    // js = (JavascriptExecutor) driver; //Required if driver is created using DriverManager
 	    // vars = new HashMap<String, Object>(); //Required if driver is created using DriverManager
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
