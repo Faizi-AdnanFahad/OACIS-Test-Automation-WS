@@ -31,9 +31,10 @@ public class OAP_2046POM {
 	}
 	@Test
 	public void test() {
-		
-		String clientLastName = "ardj";
-		String clientDOB = "05-Dec-2018";
+		final String SCREENSHOTPATH = System.getProperty("user.dir") + "\\Screenshots\\OAP_2046\\"; // use 'Temp' directory if you do not want to override the old screenshots
+
+		String clientLastName = "abou";
+		String clientDOB = "01-Jun-2001";
 
 		// Contact Tab
 		// Applicant Information
@@ -70,14 +71,26 @@ public class OAP_2046POM {
 		/***********************************************************************************************/
 		// 1. User navigates to OACIS --> User should be able to access OACIS page
 		cd.launchOACIS();
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_1.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to access OACIS page \u2713");
+		System.out.println("-----------------------------------");
 		
 		// 2. User clicks the "client" page --> User should be able to view client search page
 		ClientPageModel clientPage = new ClientPageModel(driver);
 		clientPage.ClickClientLnk();
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_2.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to view client search page \u2713");
+		System.out.println("-----------------------------------");
 		
 		// 3. User searches for client name --> User should be able to enter keywords to find a matching record
 		clientPage.FillNameTxtFld(clientLastName);
 		clientPage.GetSearchLnk().click();
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_3.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to enter keywords to find a matching record \u2713");
+		System.out.println("-----------------------------------");
 		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 	    // clicks the first client that appears
@@ -85,6 +98,10 @@ public class OAP_2046POM {
 	    
 		// 4. User clicks on "List" on the side tab --> User should be able to view a list of applications available
 		clientPage.GetApplicationsLnk().click();
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_4.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to view a list of applications that are available \u2713");
+		System.out.println("-----------------------------------");
 		
 		// 5. User opens the CB/interim funding application in the application list --> User should be able to view the "Renewal" button on the side bar if the renewal eligibility date requirement is satisfied
 		// ?????? ARE WE ASSUMING THAT WE WILL PASS A CLIENT SUCH THAT IT WILL HAVE A CB/INTERIM FUNCING APPLICAITON WITH RENEWAL ELIGIBILITY SATISFIED?
@@ -92,30 +109,45 @@ public class OAP_2046POM {
 		// OR SHOULD I CHECK THE RENEWAL ELGIBILITY DATE MAKING SURE THAT IT IS AT LEAST 2 MONTHS OLD FROM THE CURRENT DATA PROGRAMATICALLY?(WHAT IF NOT MET AND NO SUCH APPLICATION IS FOUND??) OR SHOULD WHEN FETCHING
 		// THE DATA FOR THIS REGRESSION TEST, WE CHECK ALL THOSE AND PASS IT TO THIS TEST?
 		this.findAndClickCBorInterimApplication();
-	    
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_5.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to view the \"Renewal\" button on the side bar if the renewal eligibility date requirement is satisfied \u2713");
+		System.out.println("-----------------------------------");
+
 		// To resolve this error, For renewal applications, expenses provided date is required on prior application.
 		// The following steps must be followed
 		ContactTab contactTab = new ContactTab(driver);
-		this.fillContactTabIfNeccessary(contactTab, applicantDOB, unitNum, streetNum, streetName, city, postalCode, refNum, province);
+		this.fillContactTabIfBlank(contactTab, applicantDOB, unitNum, streetNum, streetName, city, postalCode, refNum, province);
 	    driver.findElement(By.id("ctlAppContent_lbFollowUpTab")).click();
 	    WebElement expenseProvidedDate = driver.findElement(By.xpath("//*[@id=\"ctlAppContent_ctlExpensesProvidedDate_txtDate\"]"));
 	    expenseProvidedDate.sendKeys(expenseDate);
 	    contactTab.GetSaveLnk().click();
 	    
-		// 6. User clicks on "Renew" button on the side bar --> User should be able to see a new Renewal application with the basic information created in the list of application.
+		// 6. User clicks on "Renew" button on the side bar --> User should be able to renew the application with the basic information.
 		this.findAndClickCBorInterimApplication();
 	    contactTab.GetRenewLnk().click();
-		
-		// 7. User inputs all required fields in "Contacts" tab and clicks "Save" --> User should be able to successfully save after completing fields in "Contacts" tab
-		this.fillContactTabIfNeccessary(new ContactTab(driver), applicantDOB, unitNum, streetNum, streetName, city, postalCode, refNum, province);
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_6.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to renew the application with the basic information \u2713");
+		System.out.println("-----------------------------------");
 
-		
-		// 8. User confirms information on "Prior Service" tab
+		// 7. User inputs all required fields in "Contacts" tab and clicks "Save" --> User should be able to successfully save after completing fields in "Contacts" tab
+		this.fillContactTabIfBlank(new ContactTab(driver), applicantDOB, unitNum, streetNum, streetName, city, postalCode, refNum, province);
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_7.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to successfully save after completing fields in \"Contacts\" tab \u2713");
+		System.out.println("-----------------------------------");
+
+		// 8. User confirms information on "Prior Service" tab -> User should be able to confirm that "Prior service" tab matches 
 		// Click on Prior Service Tab
 		driver.findElement(By.id("ctlAppContent_lbPriorServiceTab")).click();
 		PriorityServiceTab priorService = new PriorityServiceTab(driver);
 	    priorService.FillProviderClientDOB_txtDateTxtFld(clientDOB);
-	    
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_8.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to confirm that \"Prior service\" tab matches  \u2713");
+		System.out.println("-----------------------------------");
+
 	    // 9. User inputs all required fields in "Intake" tab and clicks "Save" --> User should be able to confirm that "Intake" tab matches
 	    // Click on intakes Tab
 	    driver.findElement(By.id("ctlAppContent_lbIntakeTab")).click();
@@ -131,10 +163,16 @@ public class OAP_2046POM {
 		    intakeTab.SelectOptionConsentSelect(driver, this.originalWindow, consentProvidedBy);
 		    intakeTab.FillInformationLetterDate_txtDateTxtFld(informationLetterDate);
 	    }
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_9.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to confirm that \"Intake\" tab matches \u2713");
+		System.out.println("-----------------------------------");
 	    
 	    // 10. User inputs all required fields in "Banking" tab and clicks "Save" --> User should be able to confirm that "Banking" tab matches
 		/***********************************************************************************************/
 	    // Click on Banking Tab
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
+		driver.findElement(By.id("ctlAppContent_lbBankingTab")).click();
 		driver.findElement(By.id("ctlAppContent_lbBankingTab")).click();
 		BankingTab bankingTab = new BankingTab(driver);
 	    bankingTab.FillBankNameTxtFld(nameOfFinanInst);
@@ -142,6 +180,10 @@ public class OAP_2046POM {
 	    bankingTab.FillBankBranchTxtFld(transit);
 	    bankingTab.FillBankTxtFld(institution);
 	    bankingTab.FillBankAccountTxtFld(bankAccount);
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_10.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to confirm that \"Banking\" tab matches \u2713");
+		System.out.println("-----------------------------------");
 	    
 	    // 11. User confirms budget amount on "Budget" tab --> User should be able to confirm that "Budget" tab matches
 	    // Click on budget Tab
@@ -155,7 +197,11 @@ public class OAP_2046POM {
  	    else {
  		    assertTrue(annualBudAmntStr.equals(""));
  	    }
- 	    
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_11.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to confirm that \"Budget\" tab matches \u2713");
+		System.out.println("-----------------------------------");
+
  	    // ?????12???? UNCLEAR
  	    
 	    // 13. User enters "Application Completed Date" in "Intake" tab --> User should confirm that "Application Completed" date is updated
@@ -163,12 +209,20 @@ public class OAP_2046POM {
  	    driver.findElement(By.id("ctlAppContent_lbIntakeTab")).click();
 	    appCompletedDate = intakeTab.GetApplicationReceivedDate_txtDateTxtFld().getAttribute("value"); // we set application completed date to be the same as the application received date
 	    intakeTab.FillApplicationCompletedDate_txtDateTxtFld(appCompletedDate);
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_13.png");
+		System.out.println("-----------------------------------");
+		System.out.println("\"Application Completed\" date is updated \u2713");
+		System.out.println("-----------------------------------");
 
-	    // 14, User clicks on the "Save" button in the side tab --> User should see the new childhood budget application showing up in the application list
+	    // 14, User clicks on the "Save" button in the side tab --> User should see the new renewal application showing up in the application list
 	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 	    intakeTab.GetSaveLnk().click();
 	    String applicantTypeAfter = driver.findElement(By.xpath("/html/body/form/table/tbody/tr/td[2]/div/div[2]/table/tbody/tr[2]/td[3]/span")).getText();
 	    assertTrue(applicantTypeAfter.equals("Renewal"));
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_14.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to see the new renewal application showing up in the application list \u2713");
+		System.out.println("-----------------------------------");
 		/***********************************************************************************************/
 
 	    System.out.println("**************************");
@@ -176,7 +230,7 @@ public class OAP_2046POM {
 	    System.out.println("**************************");
 	}
 	
-	public void fillContactTabIfNeccessary(ContactTab contactTab, String applicantDOB, String unitNum, String streetNum, String streetName, String city, String postalCode, String refNum, String province) {
+	public void fillContactTabIfBlank(ContactTab contactTab, String applicantDOB, String unitNum, String streetNum, String streetName, String city, String postalCode, String refNum, String province) {
 		driver.findElement(By.id("ctlAppContent_lbContactsTab")).click();
 		if (contactTab.GetApplicantDob_txtDateTxtFld().getAttribute("value").equals("")) {
 			contactTab.FillApplicantDob_txtDateTxtFld(applicantDOB);
@@ -202,6 +256,7 @@ public class OAP_2046POM {
 		contactTab.SelectOptionApplicantProvinceSelect(driver, this.originalWindow, province);
 	}
 	
+	/* Goes over the list of applications and clicks the first application only if it is not a 'Standard New' or any 'Renewal' Application */
 	public void findAndClickCBorInterimApplication() {
 		// Finding the number of applications
 		int numOfapplicant = 0;
@@ -226,28 +281,4 @@ public class OAP_2046POM {
 			}
 		}
 	}
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

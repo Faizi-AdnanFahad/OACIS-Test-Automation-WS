@@ -34,6 +34,7 @@ public class OAP_2045POM {
 	
 	@Test
 	public void test() { // TBD - Home and Mailing Address Condition
+		final String SCREENSHOTPATH = System.getProperty("user.dir") + "\\Screenshots\\OAP_2045\\"; // use 'Temp' directory if you do not want to override the old screenshots
 		String clientLastName = "ashley jj";
 		
 		// Contact Tab
@@ -64,25 +65,45 @@ public class OAP_2045POM {
 		
 		// 1. User navigates to OACIS --> User should be able to access OACIS page
 		cd.launchOACIS();
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_1.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to access OACIS page \u2713");
+		System.out.println("-----------------------------------");
 		
 		// 2. User clicks the "client" page --> User should be able to view client search page
 		ClientPageModel clientPage = new ClientPageModel(driver);
 		clientPage.ClickClientLnk();
-
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_2.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to view client search page \u2713");
+		System.out.println("-----------------------------------");
+		
 		// 3. User searches for client name --> User should be able to enter keywords to find a matching record
 		clientPage.FillNameTxtFld(clientLastName);
 		clientPage.GetSearchLnk().click();
-	
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_3.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to enter keywords to find a matching record \u2713");
+		System.out.println("-----------------------------------");
+
 	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	    
 	    // 4. User clicks on the client --> User should see the client page with their details
 	    driver.findElement(By.className("GridRow1")).click(); 
-	    
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_4.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to see the client page with their details \u2713");
+		System.out.println("-----------------------------------");
+
 	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	    
 	    // 5. User clicks "Applications" and then "New" --> User should be able to see the application and all the tabs
 	    cd.createNewApplication();
-	    
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_5.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to see the application and all the tabs \u2713");
+		System.out.println("-----------------------------------");
+
 //	     Clicks on Contacts tab
 		driver.findElement(By.id("ctlAppContent_lbContactsTab")).click();
 		
@@ -98,13 +119,20 @@ public class OAP_2045POM {
 		contactTab.SelectOptionApplicantProvinceSelect(driver, this.originalWindow, province);
 		contactTab.FillApplicantPostalCodeTxtFld(postalCode);
 		contactTab.FillReferenceNumberTxtFld(refNum);
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_6.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to successfully save after completing fields in \"Contacts\" tab \u2713");
+		System.out.println("-----------------------------------");
 		
-	    // 7. User clicks on Intake tab and fills in "Application Received Date" --> User should be able to confirm that "Intake" tab matches
+		// clicks on intake tab
 	    driver.findElement(By.id("ctlAppContent_lbIntakeTab")).click();
-	    
 	    // 7. User inputs all required fields in "Intake" tab and clicks "Save" --> User should be able to confirm that "Intake" tab matches 
 	    IntakeTab intakeTab = new IntakeTab(driver);
-	    
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_7p1.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to confirm that \"Intake\" tab matches  \u2713");
+		System.out.println("-----------------------------------");
+
 	    // 8. User clicks on the "Intake Process" dropdown --> User confirms "Determination of Needs Pilot" is selected in the dropdow
 	    // 9. User clicks on "Determination of Needs" as Intake Process --> User successfully selects "Determination of Needs Pilot" as Intake Process
 	    intakeTab.SelectOptionIntakeProcessSelect(driver, this.originalWindow, intakeProccess);
@@ -112,7 +140,12 @@ public class OAP_2045POM {
 	    // 10. User clicks on the "Applicant Type" dropdown --> Confirm "Pilot" is added in the dropdown
 	    // 11. User clicks on "Pilot" as Applicant Type --> User successfully selects "Pilot" as Applicant Type
 	    intakeTab.SelectOptionAppTypeSelect(driver, this.originalWindow, applicantType);
-	    
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_8-11.png");
+		System.out.println("-----------------------------------");
+		System.out.println("\"Determination of Needs Pilot\" is selected in the dropdow  \u2713");
+		System.out.println("\"Pilot\" is added in the dropdow  \u2713");
+		System.out.println("-----------------------------------");
+
 	    // 12. User enters all other information, checks consent checkboxes and clicks save --> User should successfully save all the entered information
 	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	    intakeTab.SelectOptionAgeProofSelect(driver, this.originalWindow, proofOfAge);
@@ -120,7 +153,11 @@ public class OAP_2045POM {
 	    intakeTab.SelectOptionConsentSelect(driver, this.originalWindow, consentProvidedBy);
 	    intakeTab.FillInformationLetterDate_txtDateTxtFld(informationLetterDate);
 	    intakeTab.FillConsentDate_txtDateTxtFld(dateOfConsent);
-	    
+	    cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_12.png");
+		System.out.println("-----------------------------------");
+		System.out.println("\"User should successfully save all the entered information \u2713");
+		System.out.println("-----------------------------------");
+		
 	    // 7. User clicks on Intake tab and fills in "Application Received Date" --> User should be able to confirm that "Intake" tab matches
 	    intakeTab.FillApplicationReceivedDate_txtDateTxtFld(appRecievedDate);
 	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
@@ -129,15 +166,23 @@ public class OAP_2045POM {
 	    
 	    // 12. User enters "Application Completed Date" in "Intake" tab --> User should successfully save all the entered information
 	    intakeTab.FillApplicationCompletedDate_txtDateTxtFld(appCompletedDate);
+	    cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_7p2.png");
+		System.out.println("-----------------------------------");
+		System.out.println("\"User should successfully save all the entered information \u2713");
+		System.out.println("-----------------------------------");
 
-	    // 12, User clicks on the "Save" button in the side tab
+	    // 13, User clicks on the "Save" button in the side tab --> User should see the new childhood budget application showing up in the application list
 	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); 
 	    intakeTab.GetSaveLnk().click();
 	    String intakeProcessAfter = driver.findElement(By.xpath("//*[@id=\"ctlAppList_dgdClientApps__ctl2_IntakeType\"]")).getText();
 	    assertTrue(intakeProcessAfter.equals(intakeProccess));
 	    String applicantTypeAfter = driver.findElement(By.xpath("/html/body/form/table/tbody/tr/td[2]/div/div[2]/table/tbody/tr[2]/td[3]/span")).getText();
 	    assertTrue(applicantTypeAfter.equals(applicantType));
-	    
+	    cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_13.png");
+		System.out.println("-----------------------------------");
+		System.out.println("User is able to see the new DoN Pilot application showing up in the application list \u2713");
+		System.out.println("-----------------------------------");
+
 	    System.out.println("**************************");
 	    System.out.println("Regression Test Case PASSED! - Create new application - Standard New ");
 	    System.out.println("**************************");

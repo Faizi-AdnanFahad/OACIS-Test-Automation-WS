@@ -32,7 +32,8 @@ public class OAP_2047POM {
 	}
 	@Test
 	public void test() {
-		
+		final String SCREENSHOTPATH = System.getProperty("user.dir") + "\\Screenshots\\OAP_2047\\"; // use 'Temp' directory if you do not want to override the old screenshots
+
 		String clientLastName = "majeed";
 		String bussinessUnit = "F209 - OAP Services";
 		String serviceLinesAmount = "500";
@@ -40,6 +41,7 @@ public class OAP_2047POM {
 		/***********************************************************************************************/
 		// 1. User navigates to OACIS --> User should be able to access OACIS page
 		cd.launchOACIS();
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_1.png");
 		System.out.println("-----------------------------------");
 		System.out.println("User is able to access OACIS page  \u2713");
 		System.out.println("-----------------------------------");
@@ -64,6 +66,7 @@ public class OAP_2047POM {
  	    budgetTab.GetFundingStartDate_txtDateTxtFld().isDisplayed();
  	    budgetTab.GetBudgetYearSelect().isDisplayed();
  	    budgetTab.GetNeedsProfileLevelSelect().isDisplayed();
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_2.png");
  	    System.out.println("-----------------------------------");
 		System.out.println("The Budget page is available  \u2713");
 		System.out.println("-----------------------------------");
@@ -72,6 +75,7 @@ public class OAP_2047POM {
 		budgetTab.GetAuthorizationLnk().click();
  	   	WebElement numAuthorMsg = driver.findElement(By.xpath("//*[@id=\"ctlAuthList_lblListStatus\"]"));
  	   	assertTrue(numAuthorMsg.getText().equals("There are no authorizations found."));
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_3.png");
  	   	System.out.println("-----------------------------------");
 		System.out.println("User is able to view a blank authorization page  \u2713");
 		System.out.println("-----------------------------------");
@@ -83,6 +87,7 @@ public class OAP_2047POM {
 		authorizationPage.GetAuthListLnk().click();
 		int numAuthorization = driver.findElement(By.xpath("//*[@id=\"ctlAuthList_lblListStatus\"]")).getText().charAt(0) - '0';
 		assertTrue(numAuthorization > 0);
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_4.png");
 		System.out.println("-----------------------------------");
 		System.out.println("User is able to view a new authorization created and saved  \u2713");
 		System.out.println("-----------------------------------");
@@ -91,6 +96,7 @@ public class OAP_2047POM {
 		driver.findElement(By.xpath("//*[@id=\"ctlAuthList_dgdAuths\"]/tbody/tr[2]")).click();
 		authorizationPage.GetServiceLinesLnk().click();
 		driver.findElements(By.xpath("//*[@id=\"ctlServiceLines_dgdServiceLines\"]/tbody/tr[2]")).isEmpty(); // checks that there isn't a service line
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_5.png");
 		System.out.println("-----------------------------------");
 		System.out.println("User is able to view a blank service line page  \u2713");
 		System.out.println("-----------------------------------");
@@ -103,6 +109,7 @@ public class OAP_2047POM {
 		serviceLinesPage.GetSaveLnk().click();
 		assertFalse(driver.findElements(By.xpath("//*[@id=\"ctlServiceLines_dgdServiceLines\"]/tbody/tr[2]")).isEmpty());
 		assertEquals(Double.parseDouble(driver.findElement(By.xpath("/html/body/form/table/tbody/tr/td[2]/div/div[2]/div[2]/div/table/tbody/tr[2]/td[3]/span")).getText()), Double.parseDouble(serviceLinesAmount), 0.01);
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_6.png");
 		System.out.println("-----------------------------------");
 		System.out.println("User is able to view the new service line created and saved  \u2713");
 		System.out.println("-----------------------------------");
@@ -119,7 +126,8 @@ public class OAP_2047POM {
  		String authMSGBudgetTab = driver.findElement(By.xpath("//*[@id=\"ctlAppContent_ctlAuthList_lblListStatus\"]")).getText();
  		int numOfAuthBudgTab = authMSGBudgetTab.charAt(0) - '0';
  		assertTrue(numOfAuthBudgTab > 0);
-		System.out.println("-----------------------------------");
+		cd.takeSnapShot(driver, SCREENSHOTPATH + "Step_7.png");
+ 		System.out.println("-----------------------------------");
 		System.out.println("User is able to see newly created authorization in the authorization list and \"Authorized Total\" amount been updated  \u2713");
 		System.out.println("-----------------------------------");
  		/***********************************************************************************************/
@@ -129,7 +137,7 @@ public class OAP_2047POM {
 	    System.out.println("**************************");
 	}
 	//*[@id="ctlAppContent_ctlAuthList_lblListStatus"]
-	public void fillContactTabIfNeccessary(ContactTab contactTab, String applicantDOB, String unitNum, String streetNum, String streetName, String city, String postalCode, String refNum, String province) {
+	public void fillContactTabIfBlank(ContactTab contactTab, String applicantDOB, String unitNum, String streetNum, String streetName, String city, String postalCode, String refNum, String province) {
 		driver.findElement(By.id("ctlAppContent_lbContactsTab")).click();
 		if (contactTab.GetApplicantDob_txtDateTxtFld().getAttribute("value").equals("")) {
 			contactTab.FillApplicantDob_txtDateTxtFld(applicantDOB);
