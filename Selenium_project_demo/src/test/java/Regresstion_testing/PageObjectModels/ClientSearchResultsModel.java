@@ -1,22 +1,21 @@
 package Regresstion_testing.PageObjectModels;
 
 
-import java.io.File;
-
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import Regresstion_testing.DriverFactory;
+import Regresstion_testing.POMPage;
 import Regresstion_testing.ScreenShotHelper;
 import Regresstion_testing.ScreenShotInterface;
+import Regresstion_testing.PageObjectModels.ApplicationPageTabs.ContactTab;
 
+public class ClientSearchResultsModel implements ScreenShotInterface {
+	
 
+	
 
-public class ClientPageModel implements ScreenShotInterface{
 	
 	private WebDriver Driver;
 	private WebElement QueryTxtFld;
@@ -33,11 +32,18 @@ public class ClientPageModel implements ScreenShotInterface{
 	private WebElement MergeLnk;
 	private WebElement ApplicationsLnk;
 	private WebElement SearchLnk;
+	private WebElement ExactMatchCheckBox;
+	private WebElement AccessOAPCheckBox;
 
-	public ClientPageModel(WebDriver driver)
-	{
-		DriverFactory.WaitForPageLoad(driver);
-		this.Driver = driver;
+	public ClientSearchResultsModel TakeScreenShot() {
+		ScreenShotHelper.TakeScreenShot(Driver);
+		return this;
+		
+	}
+	
+	public ClientInformationModel ClickFirstRow() {
+		 Driver.findElement(By.className("GridRow1")).click(); 
+		 return new ClientInformationModel(Driver);
 	}
 	
 	public WebElement GetQueryTxtFld()
@@ -208,98 +214,121 @@ public class ClientPageModel implements ScreenShotInterface{
 		this.SearchLnk=searchLnk;
 	}
 
+	public WebElement GetExactMatchCheckBox()
+	{
+		if(this.ExactMatchCheckBox==null)
+			SetExactMatchCheckBox(Driver.findElement(By.xpath("//*[@id=\"ctlClientSearch_chkExactMatch\"]")));
+		return this.ExactMatchCheckBox;
+	}
 
-	
+	public void SetExactMatchCheckBox(WebElement exactMatchCheckBox)
+	{
+		this.ExactMatchCheckBox=exactMatchCheckBox;
+	}
 
-	public ClientPageModel FillQueryTxtFld(String text)
+	public WebElement GetAccessOAPCheckBox()
+	{
+		if(this.AccessOAPCheckBox==null)
+			SetAccessOAPCheckBox(Driver.findElement(By.xpath("//*[@id=\"ctlClientSearch_chkAccessOAP\"]")));
+		return this.AccessOAPCheckBox;
+	}
+
+	public void SetAccessOAPCheckBox(WebElement accessOAPCheckBox)
+	{
+		this.AccessOAPCheckBox=accessOAPCheckBox;
+	}
+
+
+	public ClientSearchResultsModel(WebDriver driver)
+	{
+		DriverFactory.WaitForPageLoad(driver);
+		this.Driver = driver;
+	}
+
+	public ClientSearchResultsModel FillQueryTxtFld(String text)
 	{
 		GetQueryTxtFld().sendKeys(text);
 		return this;
 	}
 
 
-	public ClientPageModel FillNameTxtFld(String text)
+	public ClientSearchResultsModel FillNameTxtFld(String text)
 	{
 		GetNameTxtFld().sendKeys(text);
 		return this;
 	}
 
-	public LandingPageModel ClickMainLnk()
+//	public Place_Holder ClickMainLnk()
+//	{
+//		GetMainLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+//	public Place_Holder ClickQueueLnk()
+//	{
+//		GetQueueLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+//	public Place_Holder ClickClientLnk()
+//	{
+//		GetClientLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+//	public Place_Holder ClickMaintenanceLnk()
+//	{
+//		GetMaintenanceLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+//	public Place_Holder ClickReportsLnk()
+//	{
+//		GetReportsLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+//	public Place_Holder ClickNewLnk()
+//	{
+//		GetNewLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+//	public Place_Holder ClickSaveLnk()
+//	{
+//		GetSaveLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+//	public Place_Holder ClickDeleteLnk()
+//	{
+//		GetDeleteLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+//	public Place_Holder ClickListLnk()
+//	{
+//		GetListLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+//	public Place_Holder ClickMergeLnk()
+//	{
+//		GetMergeLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+//	public Place_Holder ClickApplicationsLnk()
+//	{
+//		GetApplicationsLnk().click();
+//		return new Place_Holder(Driver);
+//	}
+	public ClientInformationModel ClickSearchLnk()
 	{
-		GetMainLnk().click();
-		return new LandingPageModel(Driver);
+		GetSearchLnk().click();
+		return new ClientInformationModel (Driver);
 	}
-//		public Place_Holder ClickQueueLnk()
-//		{
-//			GetQueueLnk().click();
-//			return new Place_Holder(Driver);
-//		}
-	public ClientPageModel ClickClientLnk()
+	public ClientSearchResultsModel ClickExactMatchCheckBox()
 	{
-		GetClientLnk().click();
+		GetExactMatchCheckBox().click();
 		return this;
 	}
-//		public Place_Holder ClickMaintenanceLnk()
-//		{
-//			GetMaintenanceLnk().click();
-//			return new Place_Holder(Driver);
-//		}
-//		public Place_Holder ClickReportsLnk()
-//		{
-//			GetReportsLnk().click();
-//			return new Place_Holder(Driver);
-//		}
-//		public Place_Holder ClickNewLnk()
-//		{
-//			GetNewLnk().click();
-//			return new Place_Holder(Driver);
-//		}
-//		public Place_Holder ClickSaveLnk()
-//		{
-//			GetSaveLnk().click();
-//			return new Place_Holder(Driver);
-//		}
-//		public Place_Holder ClickDeleteLnk()
-//		{
-//			GetDeleteLnk().click();
-//			return new Place_Holder(Driver);
-//		}
-//		public Place_Holder ClickListLnk()
-//		{
-//			GetListLnk().click();
-//			return new Place_Holder(Driver);
-//		}
-//		public Place_Holder ClickMergeLnk()
-//		{
-//			GetMergeLnk().click();
-//			return new Place_Holder(Driver);
-//		}
-//		public Place_Holder ClickApplicationsLnk()
-//		{
-//			GetApplicationsLnk().click();
-//			return new Place_Holder(Driver);
-//		}
-		public ClientSearchResultsModel ClickSearchLnk()
-		{
-			GetSearchLnk().click();
-			return new ClientSearchResultsModel(Driver);
-		}
-
-		public ClientPageModel TakeScreenShot() {
-			ScreenShotHelper.TakeScreenShot(Driver);
-			return this;
-			
-		}
-
-	
-	
-		
+	public ClientSearchResultsModel ClickAccessOAPCheckBox()
+	{
+		GetAccessOAPCheckBox().click();
+		return this;
 	}
 
-		
 
 
-
-
-
-
+}

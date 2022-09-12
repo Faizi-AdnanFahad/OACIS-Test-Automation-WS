@@ -13,7 +13,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import Regresstion_testing.ClientDriver;
+import Regresstion_testing.POMPage;
 import Regresstion_testing.PageObjectModels.ClientPageModel;
+import Regresstion_testing.PageObjectModels.LandingPageModel;
 import Regresstion_testing.PageObjectModels.ApplicationPageTabs.ContactTab;
 import Regresstion_testing.PageObjectModels.ApplicationPageTabs.FollowUpTab;
 import Regresstion_testing.PageObjectModels.ApplicationPageTabs.IntakeTab;
@@ -70,10 +72,18 @@ public class OAP_2042POM {
 		cd.launchOACIS();
 		
 		// 2. User clicks the "client" page --> User should be able to view client search page
-		ClientPageModel clientPage = new ClientPageModel(driver);
-		clientPage.ClickClientLnk();
+		LandingPageModel page = new LandingPageModel(driver);
+		page.ClickClientLnk()
+		
+		//ClientPageModel clientPage = new ClientPageModel(driver);
+		//clientPage.ClickClientLnk();
 
 		// 3. User searches for client name --> User should be able to enter keywords to find a matching record
+		
+		.FillNameTxtFld("asdf")
+		.ClickSearchLnk()
+		.ClickFirstRow()
+		.
 		clientPage.FillNameTxtFld(clientLastName);
 		clientPage.GetSearchLnk().click();
 	

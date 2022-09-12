@@ -1,8 +1,14 @@
 package Excel_Handlers;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellAddress;
+import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -13,19 +19,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Iterator;
 
 public class ExcelDataByColName {
 	
-	@Test
-	public void TestTrial() {
-		XSSFSheet sheet = GetExcelSheet("ClientImportTest.xlsx");
-		XSSFRow row = sheet.getRow(2);
-		System.out.println("client name is " + GetCellValue(row, "CLName"));
-		
-	}
+
 	
-	
+
 	public static XSSFSheet GetExcelSheet(String fileName) {
 		XSSFSheet sheet=null;
 		try {

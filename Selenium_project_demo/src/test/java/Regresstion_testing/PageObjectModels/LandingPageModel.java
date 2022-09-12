@@ -8,8 +8,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import Regresstion_testing.DriverFactory;
+import Regresstion_testing.POMPage;
+import Regresstion_testing.ScreenShotHelper;
+import Regresstion_testing.ScreenShotInterface;
 
-public class LandingPageModel {
+public class LandingPageModel implements ScreenShotInterface{
 	
 	private WebDriver Driver;
 	private WebElement QueryTxtFld;
@@ -20,6 +23,12 @@ public class LandingPageModel {
 	private WebElement ReportsLnk;
 	private WebElement SupplierSearchLnk;
 
+	public LandingPageModel TakeScreenShot() {
+		ScreenShotHelper.TakeScreenShot(Driver);
+		return this;
+		
+	}
+	
 	public WebElement GetQueryTxtFld()
 	{
 		if(this.QueryTxtFld==null)
@@ -147,6 +156,8 @@ public class LandingPageModel {
 //			GetSupplierSearchLnk().click();
 //			return new Place_Holder(Driver);
 //		}
+
+
 }
 
 

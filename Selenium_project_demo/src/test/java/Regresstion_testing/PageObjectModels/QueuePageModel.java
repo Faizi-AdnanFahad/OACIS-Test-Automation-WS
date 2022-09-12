@@ -10,8 +10,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import Regresstion_testing.DriverFactory;
+import Regresstion_testing.ScreenShotHelper;
+import Regresstion_testing.ScreenShotInterface;
 
-public class QueuePageModel {
+public class QueuePageModel implements ScreenShotInterface{
 	private WebDriver Driver;
 	private WebElement QueryTxtFld;
 	private WebElement ReceivedDate_txtDateTxtFld;
@@ -30,6 +32,13 @@ public class QueuePageModel {
 	private WebElement AMPMSelect;
 	private WebElement FormSourceSelect;
 	private WebElement FormNameSelect;
+	
+	
+	public QueuePageModel TakeScreenShot() {
+		ScreenShotHelper.TakeScreenShot(Driver);
+		return this;
+		
+	}
 	
 	public QueuePageModel(WebDriver driver) {
 		DriverFactory.WaitForPageLoad(driver);
@@ -373,4 +382,6 @@ public class QueuePageModel {
 //		Driver.switchTo().Window(LandingPage.BrowserWindowHandle);
 //		return this;
 //	}
+
+
 }
