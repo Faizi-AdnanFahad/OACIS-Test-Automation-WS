@@ -20,6 +20,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import CustomExceptions.OacisNotLaunched;
 import net.bytebuddy.asm.Advice.Origin;
 
 public class ClientDriver {
@@ -40,10 +41,14 @@ public class ClientDriver {
 		return this.driver;
 	}
 	
-	public void launchOACIS() {
-		 System.out.println("**********************************************************");
-		 System.out.println("Launching the Oacis website...");
+	public void launchOACIS() throws OacisNotLaunched {
+//		 System.out.println("**********************************************************");
+//		 System.out.println("Launching the Oacis website...");
 		 driver.get("http://intra.stage.oacis.children.gov.on.ca/Main.aspx"); // User should be able to access OACIS page
+		if (!driver.getCurrentUrl().equals("http://intra.stage.oacis.children.gov.on.ca/Main.aspx")) {
+			throw new OacisNotLaunched("Unable to launch OACIS.");
+		}
+
 	}
 	
 
