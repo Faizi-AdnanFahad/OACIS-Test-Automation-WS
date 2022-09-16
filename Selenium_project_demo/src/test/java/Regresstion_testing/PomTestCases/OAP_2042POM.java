@@ -41,7 +41,7 @@ public class OAP_2042POM {
 		String picPath = "";
 		
 		// Client Information
-		String clientLastName = "Alison";
+		String clientLastName = "RegTestL";
 		
 		// Applicant Information
 		String applicantLastName = "Amanda";
@@ -158,7 +158,7 @@ public class OAP_2042POM {
 	    }
 	    catch (ElementNotInteractableException e) {
 			cd.takeSnapShot(driver, picPath);
- 			this.statusInfo.put("6", new Object[] { "Step 5", "User is able to successfully save after completing fields in \"Contacts\" tab", "PASS", "Select" + e.getRawMessage(), picPath});
+ 			this.statusInfo.put("6", new Object[] { "Step 5", "User is able to successfully save after completing fields in \"Contacts\" tab", "FAIL", "Select" + e.getRawMessage(), picPath});
 		}
  		catch (NoSuchElementException e) {
 			cd.takeSnapShot(driver, picPath);
@@ -194,11 +194,11 @@ public class OAP_2042POM {
 	    }
 		catch (NoSuchElementException e) {
 			cd.takeSnapShot(driver, picPath);
-			this.statusInfo.put("7", new Object[] { "Step 6", "User is able to confirm that \"Intake\" tab matches", "FAIL", "Select" + e.getRawMessage(), picPath});
+			this.statusInfo.put("7", new Object[] { "Step 6", "User is able to confirm that \"Intake\" tab matches", "FAIL", e.getRawMessage(), picPath});
 		}
 	    catch (ElementNotInteractableException e) {
 			cd.takeSnapShot(driver, picPath);
-			this.statusInfo.put("7", new Object[] { "Step 6", "User is able to confirm that \"Intake\" tab matches", "FAIL", e.getRawMessage(), picPath});
+			this.statusInfo.put("7", new Object[] { "Step 6", "User is able to confirm that \"Intake\" tab matches", "FAIL", "Select " + e.getRawMessage(), picPath});
 		}
 //		System.out.println("-----------------------------------");
 //		System.out.println("User is able to confirm that \"Intake\" tab matches \u2713");
